@@ -202,3 +202,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,linux,macos,windows
 # Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/diagonal-15-puzzle.iml
