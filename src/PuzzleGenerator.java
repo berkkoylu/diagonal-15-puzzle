@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class PuzzleGenerator {
 
+    private static int lastMovedTile = 0;
+    private int nextTile = 0;
     static int[][] puzzle = {{1,2,3,4},
                              {12, 13, 14, 5},
                              {11,0,15,6},
@@ -15,7 +17,18 @@ public class PuzzleGenerator {
             List<Integer> possibleMoves = findPossibleMove(puzzle);
             Random rand = new Random();
             int randomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
-            makeMove(0,randomElement);
+            if(lastMovedTile != randomElement){
+                makeMove(0,randomElement);
+//                System.out.printf("Changed 0 with %d\n", randomElement);
+//                printPuzzle();
+            }else{
+                possibleMoves.remove(possibleMoves.remove(possibleMoves.indexOf(randomElement)));
+                int newRandomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
+                makeMove(0,newRandomElement);
+//                System.out.printf("cycle detected %d and finding new element %d \n",randomElement, newRandomElement);
+//                printPuzzle();
+            }
+            lastMovedTile = randomElement;
         }
         return puzzle;
     }
@@ -54,6 +67,15 @@ public class PuzzleGenerator {
         puzzle[locationSpace[0]][locationSpace[1]] = tile;
         puzzle[locationTile[0]][locationTile[1]] = 0;
 
+    }
+
+    public static void printPuzzle(){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.printf("%d  ",puzzle[i][j]);
+            }
+            System.out.println();
+        }
     }
 }
 

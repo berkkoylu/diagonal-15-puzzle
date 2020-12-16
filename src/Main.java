@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[][] puzzle;
-        int depth = 2;
+        int depth = 10;
         puzzle = PuzzleGenerator.generatePuzzle(depth);
         printPuzzle(puzzle);
 
