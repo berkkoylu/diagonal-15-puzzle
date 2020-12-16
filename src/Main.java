@@ -5,7 +5,12 @@ public class Main {
         int depth = 2;
         puzzle = PuzzleGenerator.generatePuzzle(depth);
         printPuzzle(puzzle);
+
+
+
+
     }
+
 
     public static void printPuzzle(int[][] puzzle){
         for (int i = 0; i < 4; i++) {
