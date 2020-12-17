@@ -92,4 +92,13 @@ public class State {
     public void setBlankTileCoordinateY(int blankTileCoordinateY) {
         this.blankTileCoordinateY = blankTileCoordinateY;
     }
+
+    public void printPuzzle(){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.printf("%d  ",matrixPuzzle[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }

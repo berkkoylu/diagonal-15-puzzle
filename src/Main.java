@@ -1,21 +1,35 @@
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
-//        int[][] puzzle;
-//        int depth = 10;
-//        puzzle = PuzzleGenerator.generatePuzzle(depth);
+       int[][] puzzle1;
+       int depth = 3;
+        puzzle1 = PuzzleGenerator.generatePuzzle(depth);
+        printPuzzle(puzzle1);
+        System.out.println("-----------THIS IS INITIAL STATE");
+
+        State initialState = new State(puzzle1);
+
+
+        BFS.solve(initialState,depth);
+
+//       System.out.println("-----------");
+//        int [][]puzzle = {{1,2,3,4},
+//                {12, 13, 14, 5},
+//                {11,0,15,6},
+//                {10,9,8,7}};
+//        State initialState = new State(puzzle);
 //        printPuzzle(puzzle);
 //        System.out.println("-----------");
-        int [][]puzzle = {{1,2,3,4},
-                {12, 13, 14, 5},
-                {11,0,15,6},
-                {10,9,8,7}};
-        State initialState = new State(puzzle);
-        printPuzzle(puzzle);
-        System.out.println("-----------");
+//
+//        printPuzzle(Move.up(initialState).getMatrixPuzzle());
+//        System.out.println("-----------");
+//        printPuzzle(Move.down(initialState).getMatrixPuzzle());
+//        System.out.println("-----------");
 
 
-        initialState = Move.up(initialState);
+/*        initialState = Move.up(initialState);
         printPuzzle(initialState.getMatrixPuzzle());
         System.out.println("-----------");
         initialState = Move.right(initialState);
@@ -39,7 +53,7 @@ public class Main {
         initialState = Move.upAndLeft(initialState);
         printPuzzle(initialState.getMatrixPuzzle());
         System.out.println("-----------");
-        System.out.println(initialState.getCost());
+        System.out.println(initialState.getCost());*/
 
     }
 
