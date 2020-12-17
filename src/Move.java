@@ -13,7 +13,7 @@ public class Move {
             newState.setCost(state.getCost() + 1);
             return newState;
         }else{
-            return state;
+            return null;
         }
     }
     public static State down(State state){
@@ -26,7 +26,7 @@ public class Move {
             newState.setCost(state.getCost() + 1);
             return newState;
         }else{
-            return state;
+            return null;
         }
     }
     public static State right(State state){
@@ -39,7 +39,7 @@ public class Move {
             newState.setCost(state.getCost() + 1);
             return newState;
         }else{
-            return state;
+            return null;
         }
     }
     public static State left(State state){
@@ -52,7 +52,7 @@ public class Move {
             newState.setCost(state.getCost() + 1);
             return newState;
         }else{
-            return state;
+            return null;
         }
     }
     public static State upAndRight(State state){
@@ -71,7 +71,7 @@ public class Move {
             newStateForSecondMove.setCost(state.getCost() + 3);
             return newStateForSecondMove;
         }else{
-            return state;
+            return null;
         }
     }
 
@@ -91,7 +91,7 @@ public class Move {
             newStateForSecondMove.setCost(state.getCost() + 3);
             return newStateForSecondMove;
         }else{
-            return state;
+            return null;
         }
     }
     public static State downAndRight(State state){
@@ -110,7 +110,7 @@ public class Move {
             newStateForSecondMove.setCost(state.getCost() + 3);
             return newStateForSecondMove;
         }else{
-            return state;
+            return null;
         }
     }
     public static State downAndLeft(State state){
