@@ -1,25 +1,45 @@
 public class Main {
 
     public static void main(String[] args) {
-        int[][] puzzle;
-        int depth = 10;
-        puzzle = PuzzleGenerator.generatePuzzle(depth);
+//        int[][] puzzle;
+//        int depth = 10;
+//        puzzle = PuzzleGenerator.generatePuzzle(depth);
+//        printPuzzle(puzzle);
+//        System.out.println("-----------");
+        int [][]puzzle = {{1,2,3,4},
+                {12, 13, 14, 5},
+                {11,0,15,6},
+                {10,9,8,7}};
+        State initialState = new State(puzzle);
         printPuzzle(puzzle);
         System.out.println("-----------");
-        State initialState = new State(puzzle);
-        Move.up(initialState);
-        printPuzzle(initialState.getMatrixPuzzle());
-        System.out.println("-----------");
-        initialState = Move.up(initialState);
-        printPuzzle(initialState.getMatrixPuzzle());
-        System.out.println("-----------");
-        initialState = Move.up(initialState);
-        printPuzzle(initialState.getMatrixPuzzle());
-        System.out.println("-----------");
-        initialState = Move.up(initialState);
-        printPuzzle(initialState.getMatrixPuzzle());
 
 
+        initialState = Move.up(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.right(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.down(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.left(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.upAndRight(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.downAndRight(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.downAndLeft(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        initialState = Move.upAndLeft(initialState);
+        printPuzzle(initialState.getMatrixPuzzle());
+        System.out.println("-----------");
+        System.out.println(initialState.getCost());
 
     }
 
