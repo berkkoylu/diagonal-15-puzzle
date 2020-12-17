@@ -3,17 +3,21 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-       int[][] puzzle1;
-       int depth = 3;
-        puzzle1 = PuzzleGenerator.generatePuzzle(depth);
-        printPuzzle(puzzle1);
-        System.out.println("-----------THIS IS INITIAL STATE");
+       //int[][] puzzle;
+       int [][]puzzle = {{1,2,3,4},
+                {12, 13, 14, 5},
+                {11,10,15,6},
+                {0,9,8,7}};
+       int depth = 1;
+        //puzzle = PuzzleGenerator.generatePuzzle(depth);
+        printPuzzle(puzzle);
+        System.out.println("-----------THIS IS INITIAL STATE--------");
 
-        State initialState = new State(puzzle1);
+        State initialState = new State(puzzle);
 
-
-        BFS.solve(initialState,depth);
-
+            DFS.solve(initialState,depth);
+        //BFS.solve(initialState,depth);
+           // UCS.solve(initialState,depth);
 //       System.out.println("-----------");
 //        int [][]puzzle = {{1,2,3,4},
 //                {12, 13, 14, 5},

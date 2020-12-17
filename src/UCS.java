@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class BFS {
+public class UCS {
     static int[][] solution = {{1,2,3,4},
             {12, 13, 14, 5},
             {11,0,15,6},
@@ -9,20 +9,25 @@ public class BFS {
     State state;
 
     public static HashSet<State> visited = new HashSet<State>();
-    public static final Queue<State> frontier = new LinkedList<>();
+    public static final PriorityQueue<State> queue = new PriorityQueue<>(new Comparator<State>() {
+        @Override
+        public int compare(State state, State t1) {
+            return state.getCost() - t1.getCost();
+        }
+    });
 
 
 
-    public BFS(int[][] puzzle){
+    public UCS(int[][] puzzle){
         this.puzzle = puzzle;
     }
 
     public static void solve(State state, int depth){
-        frontier.clear();
-        frontier.add(state);
+        queue.clear();
+        queue.add(state);
         State currentState = state;
-        while(!frontier.isEmpty()){
-            state = frontier.poll();
+        while(!queue.isEmpty()){
+            state = queue.poll();
             if(isSolution(state.getMatrixPuzzle())){
                 currentState = state;
                 while(currentState != null){
@@ -56,8 +61,12 @@ public class BFS {
 
     public static void addQueue(State state){
         if(state != null && !visited.contains(state)){
-            frontier.add(state);
+            queue.add(state);
         }
+    }
+
+    public static void generateChilds(State state){
+
     }
 
     public static void printPuzzle(int[][] puzzle){
@@ -67,9 +76,5 @@ public class BFS {
             }
             System.out.println();
         }
-    }
-
-    public static void expand(){
-
     }
 }
