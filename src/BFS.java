@@ -6,8 +6,9 @@ public class BFS {
             {11,0,15,6},
             {10,9,8,7}};
     int[][] puzzle;
+    State state;
 
-    public static HashSet<State> visited = new HashSet<>();
+    public static HashSet<State> visited = new HashSet<State>();
     public static final Queue<State> frontier = new LinkedList<>();
 
 
@@ -16,7 +17,7 @@ public class BFS {
         this.puzzle = puzzle;
     }
 
-    public static void solve(State state){
+    public static void solve(State state, int depth){
         frontier.clear();
         frontier.add(state);
         State currentState = state;
@@ -46,7 +47,11 @@ public class BFS {
     }
 
     public static boolean isSolution(int[][] puzzle){
-        return Arrays.deepEquals(puzzle, solution);
+        if(Arrays.deepEquals(puzzle,solution)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static void addQueue(State state){
@@ -64,4 +69,7 @@ public class BFS {
         }
     }
 
+    public static void expand(){
+
+    }
 }
