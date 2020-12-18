@@ -35,42 +35,42 @@ public class DFS {
             if(!visited.contains(state)){
                 visited.add(state);
                 if(!visited.contains(Move.upAndRight(state))){
-                    if(Move.up(state) != null){
+                    if(Move.upAndRight(state) != null){
                         frontier.push(Move.upAndRight(state));
                     }
                 }
                 if(!visited.contains(Move.upAndLeft(state))) {
-                    if (Move.down(state) != null) {
+                    if (Move.upAndLeft(state) != null) {
                         frontier.push(Move.upAndLeft(state));
                     }
                 }
                 if(!visited.contains(Move.downAndRight(state))) {
-                    if (Move.right(state) != null) {
+                    if (Move.downAndRight(state) != null) {
                         frontier.push(Move.downAndRight(state));
                     }
                 }
                 if(!visited.contains(Move.downAndLeft(state))) {
-                    if (Move.left(state) != null) {
+                    if (Move.downAndLeft(state) != null) {
                         frontier.push(Move.downAndLeft(state));
                     }
                 }
                 if(!visited.contains(Move.left(state))) {
-                    if (Move.downAndLeft(state) != null) {
+                    if (Move.left(state) != null) {
                         frontier.push(Move.left(state));
                     }
                 }
                 if(!visited.contains(Move.right(state))) {
-                    if (Move.downAndRight(state) != null) {
+                    if (Move.right(state) != null) {
                         frontier.push(Move.right(state));
                     }
                 }
                 if(!visited.contains(Move.down(state))) {
-                    if (Move.upAndLeft(state) != null) {
+                    if (Move.down(state) != null) {
                         frontier.push(Move.down(state));
                     }
                 }
                 if(!visited.contains(Move.up(state))) {
-                    if (Move.upAndRight(state) != null) {
+                    if (Move.up(state) != null) {
                         frontier.push(Move.up(state));
                     }
                 }
