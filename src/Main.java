@@ -3,21 +3,21 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-       //int[][] puzzle;
-       int [][]puzzle = {{1,13,3,4},
-                        {12, 11, 2, 5},
-                        {9,8,15,7},
-                        {10,6,14,0}};
-       int depth = 1;
-        //puzzle = PuzzleGenerator.generatePuzzle(depth);
+      //   int[][] puzzle;
+       int [][]puzzle = {{1,3,0,4},
+                        {12, 13, 2, 5},
+                        {11,14,15,6},
+                        {10,9,8,7}};
+        //int depth = 10;
+       // puzzle = PuzzleGenerator.generatePuzzle(depth);
         printPuzzle(puzzle);
         System.out.println("-----------THIS IS INITIAL STATE--------");
 
         State initialState = new State(puzzle);
         //IDS.solve(initialState,1);
-        UCS.solve(initialState);
-
-
+        //UCS.solve(initialState);
+        boolean isSolvableWithCost = ILS.solve(initialState,7);
+        System.out.println(isSolvableWithCost);
         //BFS.solve(initialState,depth);
            // UCS.solve(initialState,depth);
 //       System.out.println("-----------");

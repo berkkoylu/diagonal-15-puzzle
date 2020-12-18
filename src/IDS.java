@@ -33,7 +33,7 @@ public class IDS {
                         currentState = currentState.getPreviousState();
                     }
                     System.out.println("solved");
-                    break;
+                    return;
                 }
                 if(currentState.getDepth() < currentDepth){
                     currentState.setDepth(currentState.getDepth() + 1);
