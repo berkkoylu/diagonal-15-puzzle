@@ -6,9 +6,8 @@ public class DFS {
             {11,0,15,6},
             {10,9,8,7}};
     int[][] puzzle;
-    State state;
 
-    public static HashSet<State> visited = new HashSet<State>();
+    public static HashSet<State> visited = new HashSet<>();
     public static final Stack<State> frontier = new Stack<>();
 
 
@@ -20,7 +19,7 @@ public class DFS {
     public static void solve(State state, int depth){
         frontier.clear();
         frontier.push(state);
-        State currentState = state;
+        State currentState;
         while(!frontier.isEmpty()){
             state = frontier.pop();
             if(isSolution(state.getMatrixPuzzle())){
@@ -35,42 +34,42 @@ public class DFS {
             }
             if(!visited.contains(state)){
                 visited.add(state);
-                if(!visited.contains(Move.up(state))){
+                if(!visited.contains(Move.upAndRight(state))){
                     if(Move.up(state) != null){
                         frontier.push(Move.up(state));
-                    };
+                    }
                 }
-                if(!visited.contains(Move.down(state))) {
+                if(!visited.contains(Move.upAndLeft(state))) {
                     if (Move.down(state) != null) {
                         frontier.push(Move.down(state));
                     }
                 }
-                if(!visited.contains(Move.right(state))) {
+                if(!visited.contains(Move.downAndRight(state))) {
                     if (Move.right(state) != null) {
                         frontier.push(Move.right(state));
                     }
                 }
-                if(!visited.contains(Move.left(state))) {
+                if(!visited.contains(Move.downAndLeft(state))) {
                     if (Move.left(state) != null) {
                         frontier.push(Move.left(state));
                     }
                 }
-                if(!visited.contains(Move.downAndLeft(state))) {
+                if(!visited.contains(Move.left(state))) {
                     if (Move.downAndLeft(state) != null) {
                         frontier.push(Move.downAndLeft(state));
                     }
                 }
-                if(!visited.contains(Move.downAndRight(state))) {
+                if(!visited.contains(Move.right(state))) {
                     if (Move.downAndRight(state) != null) {
                         frontier.push(Move.downAndRight(state));
                     }
                 }
-                if(!visited.contains(Move.upAndLeft(state))) {
+                if(!visited.contains(Move.down(state))) {
                     if (Move.upAndLeft(state) != null) {
                         frontier.push(Move.upAndLeft(state));
                     }
                 }
-                if(!visited.contains(Move.upAndRight(state))) {
+                if(!visited.contains(Move.up(state))) {
                     if (Move.upAndRight(state) != null) {
                         frontier.push(Move.upAndRight(state));
                     }
@@ -82,17 +81,7 @@ public class DFS {
     }
 
     public static boolean isSolution(int[][] puzzle){
-        if(Arrays.deepEquals(puzzle,solution)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public static void addQueue(State state){
-        if(state != null && !visited.contains(state)){
-            frontier.add(state);
-        }
+        return Arrays.deepEquals(puzzle, solution);
     }
 
     public static void printPuzzle(int[][] puzzle){
@@ -102,9 +91,5 @@ public class DFS {
             }
             System.out.println();
         }
-    }
-
-    public static void expand(State state){
-
     }
 }
