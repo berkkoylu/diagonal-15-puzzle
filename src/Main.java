@@ -4,18 +4,20 @@ public class Main {
 
     public static void main(String[] args) {
        //int[][] puzzle;
-       int [][]puzzle = {{1,2,3,4},
-                {12, 13, 14, 5},
-                {11,9,15,6},
-                {10,0,8,7}};
+       int [][]puzzle = {{1,13,3,4},
+                        {12, 11, 2, 5},
+                        {9,8,15,7},
+                        {10,6,14,0}};
        int depth = 1;
         //puzzle = PuzzleGenerator.generatePuzzle(depth);
-        //printPuzzle(puzzle);
-        //System.out.println("-----------THIS IS INITIAL STATE--------");
+        printPuzzle(puzzle);
+        System.out.println("-----------THIS IS INITIAL STATE--------");
 
         State initialState = new State(puzzle);
+        //IDS.solve(initialState,1);
+        AStar.solve(initialState);
 
-            IDS.solve(initialState,1);
+
         //BFS.solve(initialState,depth);
            // UCS.solve(initialState,depth);
 //       System.out.println("-----------");
