@@ -16,7 +16,7 @@ public class DFS {
         this.puzzle = puzzle;
     }
 
-    public static void solve(State state, int depth){
+    public static void solve(State state){
         frontier.clear();
         frontier.push(state);
         State currentState;
@@ -48,7 +48,7 @@ public class DFS {
                     if (Move.downAndRight(state) != null) {
                         frontier.push(Move.downAndRight(state));
                     }
-                    
+
                 }
                 if(!visited.contains(Move.downAndLeft(state))) {
                     if (Move.downAndLeft(state) != null) {
