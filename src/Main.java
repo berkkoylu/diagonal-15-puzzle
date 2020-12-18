@@ -2,9 +2,19 @@ import java.util.Arrays;
 
 public class Main {
 
+
     public static void main(String[] args) {
+<<<<<<< Updated upstream
        //int[][] puzzle;
        int [][]puzzle = {{1,2,3,4},
+=======
+//        int[][] puzzle;
+//        int depth = 10;
+//        puzzle = PuzzleGenerator.generatePuzzle(depth);
+//        printPuzzle(puzzle);
+//        System.out.println("-----------");
+        int [][]puzzle = {{1, 2, 3, 4},
+>>>>>>> Stashed changes
                 {12, 13, 14, 5},
                 {11,10,15,6},
                 {0,9,8,7}};

@@ -1,5 +1,3 @@
-import java.sql.Array;
-
 public class State {
 
     private int [][] matrixPuzzle;
