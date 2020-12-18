@@ -44,12 +44,17 @@ public class BFS {
         }
     }
 
+<<<<<<< Updated upstream
     public static boolean isSolution(int[][] puzzle) {
         if (Arrays.deepEquals(puzzle, solution)) {
             return true;
         } else {
             return false;
         }
+=======
+    public static boolean isSolution(int[][] puzzle){
+        return Arrays.deepEquals(puzzle, solution);
+>>>>>>> Stashed changes
     }
 
     public static void addQueue(State state) {

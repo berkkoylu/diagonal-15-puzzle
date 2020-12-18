@@ -92,9 +92,14 @@ public interface Move {
             return null;
         }
     }
+<<<<<<< Updated upstream
 
     public static State downAndRight(State state) {
         if (state.getBlankTileCoordinateX() + 1 <= 3 && state.getBlankTileCoordinateY() + 1 <= 3) {
+=======
+     static State downAndRight(State state){
+        if(state.getBlankTileCoordinateX() + 1 <= 3 && state.getBlankTileCoordinateY() + 1 <= 3  ){
+>>>>>>> Stashed changes
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
             int[] spaceLocation = {state.getBlankTileCoordinateX(), state.getBlankTileCoordinateY()};
@@ -130,10 +135,16 @@ public interface Move {
         puzzle[tile[0]][tile[1]] = 0;
     }
 
+<<<<<<< Updated upstream
     static int[][] copy(int[][] old, int[][] current) {
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 4; j++)
                 old[i][j] = current[i][j];
+=======
+     static int[][] copy(int[][] old, int[][] current){
+        for(int i=0; i<4; i++)
+            System.arraycopy(current[i], 0, old[i], 0, 4);
+>>>>>>> Stashed changes
         return old;
     }
 
