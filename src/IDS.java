@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class IDS {
 
+
     static int[][] solution = {{1,2,3,4},
             {12, 0, 14, 5},
             {11,13,15,6},

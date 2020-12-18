@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class UCS {
-    static int[][] solution = {{1, 2, 3, 4},
+    static int[][] solution = {{1,2,3,4},
             {12, 13, 14, 5},
-            {11, 0, 15, 6},
-            {10, 9, 8, 7}};
+            {11,0,15,6},
+            {10,9,8,7}};
     int[][] puzzle;
 
     public static HashSet<State> visited = new HashSet<>();
@@ -16,21 +16,23 @@ public class UCS {
     });
 
 
-    public UCS(int[][] puzzle) {
+
+    public UCS(int[][] puzzle){
         this.puzzle = puzzle;
     }
 
-    public static void solve(State state) {
+    public static void solve(State state){
         queue.clear();
         queue.add(state);
         State currentState = state;
-        while (!queue.isEmpty()) {
+        while(!queue.isEmpty()){
             state = queue.poll();
 
 
-            if (isSolution(state.getMatrixPuzzle())) {
+
+            if(isSolution(state.getMatrixPuzzle())){
                 currentState = state;
-                while (currentState != null) {
+                while(currentState != null){
                     printPuzzle(currentState.getMatrixPuzzle());
                     System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
@@ -51,20 +53,20 @@ public class UCS {
         }
     }
 
-    public static boolean isSolution(int[][] puzzle) {
+    public static boolean isSolution(int[][] puzzle){
         return Arrays.deepEquals(puzzle, solution);
     }
 
-    public static void addQueue(State state) {
-        if (state != null && !visited.contains(state)) {
+    public static void addQueue(State state){
+        if(state != null && !visited.contains(state)){
             queue.add(state);
         }
     }
 
-    public static void printPuzzle(int[][] puzzle) {
+    public static void printPuzzle(int[][] puzzle){
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+                System.out.printf("%d  ",puzzle[i][j]);
             }
             System.out.println();
         }
