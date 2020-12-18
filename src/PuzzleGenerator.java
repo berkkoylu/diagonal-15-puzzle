@@ -5,6 +5,7 @@ import java.util.Random;
 public class PuzzleGenerator {
 
     private static int lastMovedTile = 0;
+    private int nextTile = 0;
     static int[][] puzzle = {{1,2,3,4},
                              {12, 13, 14, 5},
                              {11,0,15,6},
@@ -18,10 +19,14 @@ public class PuzzleGenerator {
             int randomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
             if(lastMovedTile != randomElement){
                 makeMove(0,randomElement);
+//                System.out.printf("Changed 0 with %d\n", randomElement);
+//                printPuzzle();
             }else{
                 possibleMoves.remove(possibleMoves.remove(possibleMoves.indexOf(randomElement)));
                 int newRandomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
                 makeMove(0,newRandomElement);
+//                System.out.printf("cycle detected %d and finding new element %d \n",randomElement, newRandomElement);
+//                printPuzzle();
             }
             lastMovedTile = randomElement;
         }
@@ -29,6 +34,7 @@ public class PuzzleGenerator {
     }
 
     public static List<Integer> findPossibleMove(int[][] puzzle){
+        //arraylist'in içine posssible solutionları kaybedip bu arraylist'i dönecek
         int[] position = findSpace(0);
         List<Integer> adjacent = new ArrayList<>();
         for (int i = -1; i <= 1; i++) {
