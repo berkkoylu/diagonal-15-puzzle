@@ -6,6 +6,7 @@ public class State {
     private int heuristic;
     private int blankTileCoordinateX;
     private int blankTileCoordinateY;
+    private int depth;
 
 
     // Root node
@@ -13,6 +14,7 @@ public class State {
         this.matrixPuzzle = matrixPuzzle;
         this.previousState= null;
         this.cost=0;
+        this.depth=0;
         this.heuristic=0;
         int [] positions = findSpace(matrixPuzzle);
         this.blankTileCoordinateX= positions[0];
@@ -25,6 +27,7 @@ public class State {
         this.matrixPuzzle = matrixPuzzle;
         this.previousState= previousState;
         this.cost=0;
+        this.depth=0;
         this.heuristic=0;
         int [] positions = findSpace(matrixPuzzle);
         this.blankTileCoordinateX= positions[0];
@@ -42,7 +45,13 @@ public class State {
         }
         return new int[] {0,0};
     }
+    public int getDepth() {
+        return depth;
+    }
 
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
     public int[][] getMatrixPuzzle() {
         return matrixPuzzle;
     }

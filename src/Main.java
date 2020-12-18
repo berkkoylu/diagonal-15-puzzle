@@ -2,30 +2,20 @@ import java.util.Arrays;
 
 public class Main {
 
-
     public static void main(String[] args) {
-<<<<<<< Updated upstream
        //int[][] puzzle;
        int [][]puzzle = {{1,2,3,4},
-=======
-//        int[][] puzzle;
-//        int depth = 10;
-//        puzzle = PuzzleGenerator.generatePuzzle(depth);
-//        printPuzzle(puzzle);
-//        System.out.println("-----------");
-        int [][]puzzle = {{1, 2, 3, 4},
->>>>>>> Stashed changes
                 {12, 13, 14, 5},
-                {11,10,15,6},
-                {0,9,8,7}};
+                {11,9,15,6},
+                {10,0,8,7}};
        int depth = 1;
         //puzzle = PuzzleGenerator.generatePuzzle(depth);
-        printPuzzle(puzzle);
-        System.out.println("-----------THIS IS INITIAL STATE--------");
+        //printPuzzle(puzzle);
+        //System.out.println("-----------THIS IS INITIAL STATE--------");
 
         State initialState = new State(puzzle);
 
-            DFS.solve(initialState,depth);
+            IDS.solve(initialState,1);
         //BFS.solve(initialState,depth);
            // UCS.solve(initialState,depth);
 //       System.out.println("-----------");
