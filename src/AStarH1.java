@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public class AStarH1 {
-    static int[][] solutionMatrix = {{1,2,3,4},
+    static int[][] solutionMatrix = {{1, 2, 3, 4},
             {12, 13, 14, 5},
-            {11,0,15,6},
-            {10,9,8,7}};
+            {11, 0, 15, 6},
+            {10, 9, 8, 7}};
     int[][] puzzle;
 
     public static HashSet<State> visited = new HashSet<State>();
@@ -18,20 +18,20 @@ public class AStarH1 {
         }
     });
 
-    public AStarH1(int[][] puzzle){
+    public AStarH1(int[][] puzzle) {
         this.puzzle = puzzle;
     }
 
 
-    public void solve(State state){
+    public static void solve(State state) {
         queue.clear();
         queue.add(state);
         State currentState = state;
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             state = queue.poll();
-            if(isSolution(state.getMatrixPuzzle())){
+            if (isSolution(state.getMatrixPuzzle())) {
                 currentState = state;
-                while(currentState != null){
+                while (currentState != null) {
                     printPuzzle(currentState.getMatrixPuzzle());
                     System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
@@ -52,29 +52,29 @@ public class AStarH1 {
         }
     }
 
-    public static boolean isSolution(int[][] puzzle){
-        if(Arrays.deepEquals(puzzle,solutionMatrix)){
+    public static boolean isSolution(int[][] puzzle) {
+        if (Arrays.deepEquals(puzzle, solutionMatrix)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public static void addQueue(State state){
-        if(state != null && !visited.contains(state)){
+    public static void addQueue(State state) {
+        if (state != null && !visited.contains(state)) {
             int heuristicValue = calculateHeuristicH1(state);
             state.setHeuristic(heuristicValue);
             queue.add(state);
         }
     }
 
-    public static int calculateHeuristicH1(State state){
+    public static int calculateHeuristicH1(State state) {
         int heuristicValueH1 = 0;
-        int [][]stateMatrix = state.getMatrixPuzzle();
+        int[][] stateMatrix = state.getMatrixPuzzle();
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if(stateMatrix[i][j] != solutionMatrix[i][j]){
+                if (stateMatrix[i][j] != solutionMatrix[i][j]) {
                     heuristicValueH1++;
                 }
             }
@@ -83,12 +83,10 @@ public class AStarH1 {
         return heuristicValueH1;
     }
 
-
-
-    public static void printPuzzle(int[][] puzzle){
+    public static void printPuzzle(int[][] puzzle) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ",puzzle[i][j]);
+                System.out.printf("%d  ", puzzle[i][j]);
             }
             System.out.println();
         }
