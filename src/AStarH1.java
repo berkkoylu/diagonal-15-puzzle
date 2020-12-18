@@ -23,11 +23,7 @@ public class AStarH1 {
     }
 
 
-<<<<<<< Updated upstream
     public static void solve(State state) {
-=======
-    public static void solve(State state){
->>>>>>> Stashed changes
         queue.clear();
         queue.add(state);
         State currentState = state;

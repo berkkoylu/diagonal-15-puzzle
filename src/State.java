@@ -19,6 +19,7 @@ public class State {
         int [] positions = findSpace(matrixPuzzle);
         this.blankTileCoordinateX= positions[0];
         this.blankTileCoordinateY=positions[1];
+
     }
 
     // Expanded node
