@@ -16,7 +16,7 @@ public class DFS {
         this.puzzle = puzzle;
     }
 
-    public static void solve(State state){
+    public static void solve(State state, int depth){
         frontier.clear();
         frontier.push(state);
         State currentState;
