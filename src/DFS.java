@@ -48,6 +48,7 @@ public class DFS {
                     if (Move.downAndRight(state) != null) {
                         frontier.push(Move.downAndRight(state));
                     }
+                    
                 }
                 if(!visited.contains(Move.downAndLeft(state))) {
                     if (Move.downAndLeft(state) != null) {
