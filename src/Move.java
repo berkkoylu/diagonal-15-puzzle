@@ -1,6 +1,6 @@
-public class Move {
+public interface Move {
 
-    public static State up(State state){
+       static State up(State state){
         if(state.getBlankTileCoordinateX() - 1 >= 0){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -15,7 +15,8 @@ public class Move {
             return null;
         }
     }
-    public static State down(State state){
+
+     static State down(State state){
         if(state.getBlankTileCoordinateX() + 1 <= 3 ){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -29,7 +30,7 @@ public class Move {
             return null;
         }
     }
-    public static State right(State state){
+     static State right(State state){
         if(state.getBlankTileCoordinateY() + 1 <= 3 ){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -43,7 +44,7 @@ public class Move {
             return null;
         }
     }
-    public static State left(State state){
+     static State left(State state){
         if(state.getBlankTileCoordinateY() - 1 >= 0 ){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -57,7 +58,7 @@ public class Move {
             return null;
         }
     }
-    public static State upAndRight(State state){
+     static State upAndRight(State state){
         if(state.getBlankTileCoordinateX() - 1 >= 0 && state.getBlankTileCoordinateY() + 1 <= 3  ){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -73,7 +74,7 @@ public class Move {
         }
     }
 
-    public static State upAndLeft(State state){
+     static State upAndLeft(State state){
         if(state.getBlankTileCoordinateX() - 1 >= 0 && state.getBlankTileCoordinateY() - 1 >= 0  ){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -103,7 +104,7 @@ public class Move {
             return null;
         }
     }
-    public static State downAndLeft(State state){
+     static State downAndLeft(State state){
         if(state.getBlankTileCoordinateX() + 1 <= 3 && state.getBlankTileCoordinateY() - 1 >= 0  ){
             int[][] newMatrix = new int[4][4];
             newMatrix = copy(newMatrix, state.getMatrixPuzzle());
@@ -118,13 +119,12 @@ public class Move {
             return null;
         }
     }
-    public static int[][] swap(int[][] puzzle, int[] space, int[] tile){
+     static void swap(int[][] puzzle, int[] space, int[] tile){
         puzzle[space[0]][space[1]] = puzzle[tile[0]][tile[1]];
         puzzle[tile[0]][tile[1]] = 0;
-        return puzzle;
-    }
+     }
 
-    public static int[][] copy(int[][] old, int[][] current){
+     static int[][] copy(int[][] old, int[][] current){
         for(int i=0; i<4; i++)
             for(int j=0; j<4; j++)
                 old[i][j]=current[i][j];

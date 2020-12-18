@@ -3,7 +3,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
-public class AStar {
+public class AStarH1 {
     static int[][] solutionMatrix = {{1,2,3,4},
             {12, 13, 14, 5},
             {11,0,15,6},
@@ -18,12 +18,12 @@ public class AStar {
         }
     });
 
-    public AStar(int[][] puzzle){
+    public AStarH1(int[][] puzzle){
         this.puzzle = puzzle;
     }
 
 
-    public static void solve(State state){
+    public void solve(State state){
         queue.clear();
         queue.add(state);
         State currentState = state;

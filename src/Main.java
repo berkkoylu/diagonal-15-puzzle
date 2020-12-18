@@ -15,7 +15,7 @@ public class Main {
 
         State initialState = new State(puzzle);
         //IDS.solve(initialState,1);
-        AStar.solve(initialState);
+        UCS.solve(initialState);
 
 
         //BFS.solve(initialState,depth);
