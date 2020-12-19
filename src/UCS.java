@@ -1,14 +1,13 @@
 import java.util.*;
 
 public class UCS {
-    static int[][] solution = {{1, 2, 3, 4},
+    private final static int[][] solution = {{1, 2, 3, 4},
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
-    int[][] puzzle;
 
-    public static HashSet<State> visited = new HashSet<>();
-    public static final PriorityQueue<State> queue = new PriorityQueue<>(new Comparator<State>() {
+   private final HashSet<State> visited = new HashSet<>();
+   private final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
             return state.getCost() - t1.getCost();
@@ -16,20 +15,15 @@ public class UCS {
     });
 
 
-    public UCS(int[][] puzzle) {
-        this.puzzle = puzzle;
-    }
+    public void solve(State state) {
+        frontier.clear();
+        frontier.add(state);
+        State currentState;
+        while (!frontier.isEmpty()) {
+            currentState = frontier.poll();
+//            System.out.println(frontier.size());
 
-    public static void solve(State state) {
-        queue.clear();
-        queue.add(state);
-        State currentState = state;
-        while (!queue.isEmpty()) {
-            state = queue.poll();
-
-
-            if (isSolution(state.getMatrixPuzzle())) {
-                currentState = state;
+            if (isSolution(currentState.getMatrixPuzzle())) {
                 while (currentState != null) {
                     printPuzzle(currentState.getMatrixPuzzle());
                     System.out.println("----------- cost of move is " + currentState.getCost());
@@ -38,30 +32,81 @@ public class UCS {
                 System.out.println("solved");
                 break;
             }
-
             visited.add(currentState);
-            addQueue(Move.up(state));
-            addQueue(Move.down(state));
-            addQueue(Move.left(state));
-            addQueue(Move.right(state));
-            addQueue(Move.downAndLeft(state));
-            addQueue(Move.upAndLeft(state));
-            addQueue(Move.downAndRight(state));
-            addQueue(Move.downAndLeft(state));
+
+            addQueue(Move.up(currentState));
+            addQueue(Move.down(currentState));
+            addQueue(Move.left(currentState));
+            addQueue(Move.right(currentState));
+            addQueue(Move.downAndLeft(currentState));
+            addQueue(Move.upAndLeft(currentState));
+            addQueue(Move.downAndRight(currentState));
+            addQueue(Move.downAndLeft(currentState));
         }
     }
 
-    public static boolean isSolution(int[][] puzzle) {
+    public boolean isSolution(int[][] puzzle) {
         return Arrays.deepEquals(puzzle, solution);
     }
 
-    public static void addQueue(State state) {
-        if (state != null && !visited.contains(state)) {
-            queue.add(state);
+    public void addQueue(State state) {
+        if (state != null && searchExploredAndVisited(state)) {
+            frontier.add(state);
+        }else if(searchAtFrontier(state)){
+            swapFrontier(state);
         }
     }
 
-    public static void printPuzzle(int[][] puzzle) {
+    public void swapFrontier(State state){
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                if(tempState.getCost() > state.getCost()){
+                    frontier.remove(tempState);
+                    frontier.add(state);
+//                    System.out.println("swap oldu");
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public boolean searchAtFrontier(State state){
+        if (state == null){
+            return false;
+        }
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public boolean searchExploredAndVisited(State state){
+        if (state == null){
+            return false;
+        }
+
+        for (State tempState: visited) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public void printPuzzle(int[][] puzzle) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 System.out.printf("%d  ", puzzle[i][j]);

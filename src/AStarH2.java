@@ -6,29 +6,26 @@ public class AStarH2 {
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
-    int[][] puzzle;
 
-    public static Set<State> visited = new HashSet<>();
-    public static final Queue<State> queue = new PriorityQueue<>(new Comparator<State>() {
+    private final Set<State> visited = new HashSet<>();
+   private final Queue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
             return (state.getCost() + state.getHeuristic()) - (t1.getCost() + t1.getHeuristic());
         }
     });
 
-    public AStarH2(int[][] puzzle) {
-        this.puzzle = puzzle;
-    }
 
 
-    public static void solve(State state) {
-        queue.clear();
-        queue.add(state);
-        State currentState = state;
-        while (!queue.isEmpty()) {
-            state = queue.poll();
-            if (isSolution(state.getMatrixPuzzle())) {
-                currentState = state;
+    public  void solve(State state) {
+        frontier.clear();
+        frontier.add(state);
+        State currentState;
+        while (!frontier.isEmpty()) {
+            currentState = frontier.poll();
+//            System.out.println(frontier.size());
+
+            if (isSolution(currentState.getMatrixPuzzle())) {
                 while (currentState != null) {
                     printPuzzle(currentState.getMatrixPuzzle());
                     System.out.println("----------- cost of move is " + currentState.getCost());
@@ -37,20 +34,85 @@ public class AStarH2 {
                 System.out.println("solved");
                 break;
             }
-
             visited.add(currentState);
-            addQueue(Move.up(state));
-            addQueue(Move.down(state));
-            addQueue(Move.left(state));
-            addQueue(Move.right(state));
-            addQueue(Move.downAndLeft(state));
-            addQueue(Move.upAndLeft(state));
-            addQueue(Move.downAndRight(state));
-            addQueue(Move.downAndLeft(state));
+
+            addQueue(Move.up(currentState));
+            addQueue(Move.down(currentState));
+            addQueue(Move.left(currentState));
+            addQueue(Move.right(currentState));
+            addQueue(Move.downAndLeft(currentState));
+            addQueue(Move.upAndLeft(currentState));
+            addQueue(Move.downAndRight(currentState));
+            addQueue(Move.downAndLeft(currentState));
         }
     }
 
-    public static boolean isSolution(int[][] puzzle) {
+    public void addQueue(State state) {
+        if (state != null && searchExploredAndVisited(state)) {
+            int heuristicValue = calculateHeuristicH2(state);
+            state.setHeuristic(heuristicValue);
+            frontier.add(state);
+        }else if(searchAtFrontier(state)){
+            int heuristicValue = calculateHeuristicH2(state);
+            state.setHeuristic(heuristicValue);
+            swapFrontier(state);
+        }
+    }
+
+
+
+
+    public void swapFrontier(State state){
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                if((tempState.getCost() + tempState.getHeuristic()) > (state.getCost() + state.getHeuristic())){
+                    frontier.remove(tempState);
+                    frontier.add(state);
+//                    System.out.println("swap oldu");
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public boolean searchAtFrontier(State state){
+        if (state == null){
+            return false;
+        }
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public boolean searchExploredAndVisited(State state){
+        if (state == null){
+            return false;
+        }
+
+        for (State tempState: visited) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
+    public  boolean isSolution(int[][] puzzle) {
         if (Arrays.deepEquals(puzzle, solutionMatrix)) {
             return true;
         } else {
@@ -58,15 +120,7 @@ public class AStarH2 {
         }
     }
 
-    public static void addQueue(State state) {
-        if (state != null && !visited.contains(state)) {
-            int heuristicValue = calculateHeuristicH2(state);
-            state.setHeuristic(heuristicValue);
-            queue.add(state);
-        }
-    }
-
-    public static int calculateHeuristicH2(State state) {
+    public  int calculateHeuristicH2(State state) {
         int heuristicValueH2 = 0;
         int[][] stateMatrix = state.getMatrixPuzzle();
         for (int i = 0; i < 4; i++) {
@@ -84,7 +138,7 @@ public class AStarH2 {
         return heuristicValueH2;
     }
 
-    public static void printPuzzle(int[][] puzzle) {
+    public  void printPuzzle(int[][] puzzle) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 System.out.printf("%d  ", puzzle[i][j]);
