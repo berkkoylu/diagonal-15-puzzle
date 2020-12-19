@@ -37,7 +37,7 @@ public class DFS {
                 insertVisited(state);
                 if (isVisited(Move.upAndRight(state))) {
                     if (Move.upAndRight(state) != null) {
-                       insertFrontier(Move.upAndRight(state));
+                        insertFrontier(Move.upAndRight(state));
                     }
                 }
                 if (isVisited(Move.upAndLeft(state))) {
