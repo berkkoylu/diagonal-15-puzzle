@@ -107,6 +107,7 @@ public class DFS {
                 while (iteratorState.hasNext()){
                     if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         visited.add(state);
+                        break;
                     }
                 }
             }
