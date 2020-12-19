@@ -31,16 +31,28 @@ public class BFS {
                 System.out.println("solved");
                 break;
             }
+            if(visited.isEmpty()){
+                visited.add(state);
+            }else{
+                Iterator<State> iteratorState = visited.iterator();
+                while (iteratorState.hasNext()){
+                    if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
+                        visited.add(state);
+                    }
+                }
+            }
 
-            visited.add(currentState);
             addQueue(Move.up(state));
-            addQueue(Move.down(state));
+            addQueue(Move.up(state));
             addQueue(Move.left(state));
             addQueue(Move.right(state));
             addQueue(Move.downAndLeft(state));
             addQueue(Move.upAndLeft(state));
             addQueue(Move.downAndRight(state));
             addQueue(Move.downAndLeft(state));
+        }
+        if(!isSolution(state.getMatrixPuzzle())){
+            System.out.println("Solution not found");
         }
     }
 
@@ -53,9 +65,21 @@ public class BFS {
     }
 
     public static void addQueue(State state) {
-        if (state != null && !visited.contains(state)) {
-            frontier.add(state);
+
+        if(state != null){
+            if(frontier.isEmpty()){
+                frontier.add(state);
+            }else {
+                Iterator<State> iteratorQueue = frontier.iterator();
+                while(iteratorQueue.hasNext()){
+                    if(!Arrays.deepEquals(iteratorQueue.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
+                        frontier.add(state);
+                    }
+                }
+            }
+
         }
+
     }
 
     public static void printPuzzle(int[][] puzzle) {

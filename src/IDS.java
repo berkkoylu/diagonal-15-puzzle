@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class IDS {
@@ -39,46 +40,46 @@ public class IDS {
                     System.out.println(currentState.getDepth());
 
 
-                    if(!visited.contains(state)){
-                        visited.add(state);
-                        if(!visited.contains(Move.upAndRight(state))){
+                    if(isVisited(state)){
+                        insertVisited(state);
+                        if(isVisited(Move.upAndRight(state))){
                             if(Move.upAndRight(state) != null){
-                                frontier.push(Move.upAndRight(state));
+                                insertFrontier(Move.upAndRight(state));
                             }
                         }
-                        if(!visited.contains(Move.upAndLeft(state))) {
+                        if(isVisited(Move.upAndLeft(state))) {
                             if (Move.upAndLeft(state) != null) {
-                                frontier.push(Move.upAndLeft(state));
+                                insertFrontier(Move.upAndLeft(state));
                             }
                         }
-                        if(!visited.contains(Move.downAndRight(state))) {
+                        if(isVisited(Move.downAndRight(state))) {
                             if (Move.downAndRight(state) != null) {
-                                frontier.push(Move.downAndRight(state));
+                                insertFrontier(Move.downAndRight(state));
                             }
                         }
-                        if(!visited.contains(Move.downAndLeft(state))) {
+                        if(isVisited(Move.downAndLeft(state))) {
                             if (Move.downAndLeft(state) != null) {
-                                frontier.push(Move.downAndLeft(state));
+                                insertFrontier(Move.downAndLeft(state));
                             }
                         }
-                        if(!visited.contains(Move.left(state))) {
+                        if(isVisited(Move.left(state))) {
                             if (Move.left(state) != null) {
-                                frontier.push(Move.left(state));
+                                insertFrontier(Move.left(state));
                             }
                         }
-                        if(!visited.contains(Move.right(state))) {
+                        if(isVisited(Move.right(state))) {
                             if (Move.right(state) != null) {
-                                frontier.push(Move.right(state));
+                                insertFrontier(Move.right(state));
                             }
                         }
-                        if(!visited.contains(Move.down(state))) {
+                        if(isVisited(Move.down(state))) {
                             if (Move.down(state) != null) {
-                                frontier.push(Move.down(state));
+                                insertFrontier(Move.down(state));
                             }
                         }
-                        if(!visited.contains(Move.up(state))) {
+                        if(isVisited(Move.up(state))) {
                             if (Move.up(state) != null) {
-                                frontier.push(Move.up(state));
+                                insertFrontier(Move.up(state));
                             }
                         }
                     }
@@ -89,6 +90,7 @@ public class IDS {
                 System.out.println("Solution not found");
             }
         }
+
     }
     public static boolean isSolution(int[][] puzzle){
         return Arrays.deepEquals(puzzle, solution);
@@ -100,5 +102,53 @@ public class IDS {
             }
             System.out.println();
         }
+    }
+    public static boolean isVisited(State state){
+        if(state != null){
+            if(visited.isEmpty()){
+                visited.add(state);
+                return true;
+            }else{
+                Iterator<State> iteratorState = visited.iterator();
+                while (iteratorState.hasNext()){
+                    if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
+                        visited.add(state);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    public static void insertVisited(State state){
+        if(state != null){
+            if(visited.isEmpty()){
+                visited.add(state);
+            }else{
+                Iterator<State> iteratorState = visited.iterator();
+                while (iteratorState.hasNext()){
+                    if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
+                        visited.add(state);
+                    }
+                }
+            }
+        }
+    }
+    public static void insertFrontier(State state){
+        if(state != null){
+            if(frontier.isEmpty()){
+                frontier.push(state);
+            }else{
+                Iterator<State> iteratorStack = frontier.iterator();
+                while(iteratorStack.hasNext()){
+                    if(!Arrays.deepEquals(iteratorStack.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
+                        frontier.push(state);
+                    }
+                }
+            }
+        }
+
     }
 }

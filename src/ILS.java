@@ -8,7 +8,7 @@ public class ILS {
     int[][] puzzle;
 
     public static HashSet<State> visited = new HashSet<>();
-    public static final PriorityQueue<State> queue = new PriorityQueue<>(new Comparator<State>() {
+    public static final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
             return state.getCost() - t1.getCost();
@@ -20,11 +20,11 @@ public class ILS {
     }
 
     public static boolean solve(State state, int maxCost) {
-        queue.clear();
-        queue.add(state);
+        frontier.clear();
+        frontier.add(state);
         State currentState = state;
-        while (!queue.isEmpty()) {
-            state = queue.poll();
+        while (!frontier.isEmpty()) {
+            state = frontier.poll();
             if (isSolution(state.getMatrixPuzzle())) {
                 currentState = state;
                 while (currentState != null) {
@@ -36,7 +36,17 @@ public class ILS {
                 return true;
             }
 
-            visited.add(currentState);
+            if(visited.isEmpty()){
+                visited.add(state);
+            }else{
+                Iterator<State> iteratorState = visited.iterator();
+                while (iteratorState.hasNext()){
+                    if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
+                        visited.add(state);
+                    }
+                }
+            }
+
             addQueue(Move.up(state), maxCost);
             addQueue(Move.down(state), maxCost);
             addQueue(Move.left(state), maxCost);
@@ -54,9 +64,55 @@ public class ILS {
     }
 
     public static void addQueue(State state, int maxCost) {
-        if (state != null && !visited.contains(state) && state.getCost() <= maxCost) {
-            queue.add(state);
+        if (state != null && state.getCost() <= maxCost && searchExploredAndVisited(state)) {
+            frontier.add(state);
+        }else if(searchAtFrontier(state)){
+            swapFrontier(state);
         }
+    }
+    public static void swapFrontier(State state){
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                if(tempState.getCost() > state.getCost()){
+                    frontier.remove(tempState);
+                    frontier.add(state);
+                    break;
+                }
+            }
+        }
+
+    }
+    public static boolean searchAtFrontier(State state){
+        if (state == null){
+            return false;
+        }
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return true;
+            }
+        }
+        return false;
+
+    }
+    public static boolean searchExploredAndVisited(State state){
+        if (state == null){
+            return false;
+        }
+
+        for (State tempState: visited) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+
+        for (State tempState: frontier) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void printPuzzle(int[][] puzzle) {
