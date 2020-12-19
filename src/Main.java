@@ -14,9 +14,11 @@ public class Main {
         System.out.println("-----------THIS IS INITIAL STATE--------");
 
         State initialState = new State(puzzle);
-//deneme
-        State state = new State(puzzle);
-        DFS.solve(initialState);
+
+        UCS ucs = new UCS();
+        ucs.solve(initialState);
+
+//        DFS.solve(initialState);
 //        DFS.solve(initialState);
 //        IDS.solve(initialState,depth);
 //        //ILS
