@@ -131,6 +131,7 @@ public class IDS {
                 while (iteratorState.hasNext()){
                     if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         visited.add(state);
+                        break;
                     }
                 }
             }
@@ -145,6 +146,7 @@ public class IDS {
                 while(iteratorStack.hasNext()){
                     if(!Arrays.deepEquals(iteratorStack.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         frontier.push(state);
+                        break;
                     }
                 }
             }

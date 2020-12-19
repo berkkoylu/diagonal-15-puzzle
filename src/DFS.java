@@ -77,10 +77,11 @@ public class DFS {
                     }
                 }
             }
-            if(!isSolution(state.getMatrixPuzzle())){
-                System.out.println("Solution not found");
-            } 
 
+
+        }
+        if(!isSolution(state.getMatrixPuzzle())){
+            System.out.println("Solution not found");
         }
 
     }
@@ -112,6 +113,9 @@ public class DFS {
         }
     }
     public static boolean isVisited(State state){
+        if(visited.isEmpty()){
+            return true;
+        }
         if(state != null){
             Iterator<State> iteratorState = visited.iterator();
             while (iteratorState.hasNext()){
@@ -132,6 +136,7 @@ public class DFS {
                 while(iteratorStack.hasNext()){
                     if(!Arrays.deepEquals(iteratorStack.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         frontier.push(state);
+                        break;
                     }
                 }
             }

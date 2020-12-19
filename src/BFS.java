@@ -84,6 +84,7 @@ public class BFS {
                 while(iteratorQueue.hasNext()){
                     if(!Arrays.deepEquals(iteratorQueue.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         frontier.add(state);
+                        break;
                     }
                 }
             }

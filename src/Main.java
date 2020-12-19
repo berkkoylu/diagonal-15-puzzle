@@ -4,10 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
         //int[][] puzzle;
-        int[][] puzzle = {{1, 3, 0, 4},
-                {12, 13, 2, 5},
-                {11, 14, 15, 6},
-                {10, 9, 8, 7}};
+        int[][] puzzle = {{1, 2, 3, 4},
+                {12, 13, 14, 5},
+                {11, 9, 15, 6},
+                {10, 0, 8, 7}};
         int depth = 2;
         //puzzle = PuzzleGenerator.generatePuzzle(depth);
         printPuzzle(puzzle);
@@ -15,7 +15,8 @@ public class Main {
 
         State initialState = new State(puzzle);
 //deneme
-//        BFS.solve(initialState);
+        State state = new State(puzzle);
+        DFS.solve(initialState);
 //        DFS.solve(initialState);
 //        IDS.solve(initialState,depth);
 //        //ILS

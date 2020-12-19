@@ -64,7 +64,6 @@ public class UCS {
                 if(tempState.getCost() > state.getCost()){
                     frontier.remove(tempState);
                     frontier.add(state);
-//                    System.out.println("swap oldu");
                     break;
                 }
             }
