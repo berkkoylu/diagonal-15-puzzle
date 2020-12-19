@@ -33,23 +33,33 @@ public class BFS {
             }
             if(visited.isEmpty()){
                 visited.add(state);
+
+                addQueue(Move.up(state));
+                addQueue(Move.up(state));
+                addQueue(Move.left(state));
+                addQueue(Move.right(state));
+                addQueue(Move.downAndLeft(state));
+                addQueue(Move.upAndLeft(state));
+                addQueue(Move.downAndRight(state));
+                addQueue(Move.downAndLeft(state));
+
             }else{
                 Iterator<State> iteratorState = visited.iterator();
                 while (iteratorState.hasNext()){
                     if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         visited.add(state);
+
+                        addQueue(Move.up(state));
+                        addQueue(Move.up(state));
+                        addQueue(Move.left(state));
+                        addQueue(Move.right(state));
+                        addQueue(Move.downAndLeft(state));
+                        addQueue(Move.upAndLeft(state));
+                        addQueue(Move.downAndRight(state));
+                        addQueue(Move.downAndLeft(state));
                     }
                 }
             }
-
-            addQueue(Move.up(state));
-            addQueue(Move.up(state));
-            addQueue(Move.left(state));
-            addQueue(Move.right(state));
-            addQueue(Move.downAndLeft(state));
-            addQueue(Move.upAndLeft(state));
-            addQueue(Move.downAndRight(state));
-            addQueue(Move.downAndLeft(state));
         }
         if(!isSolution(state.getMatrixPuzzle())){
             System.out.println("Solution not found");

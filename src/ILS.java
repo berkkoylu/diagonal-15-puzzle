@@ -38,23 +38,34 @@ public class ILS {
 
             if(visited.isEmpty()){
                 visited.add(state);
+
+                addQueue(Move.up(state), maxCost);
+                addQueue(Move.down(state), maxCost);
+                addQueue(Move.left(state), maxCost);
+                addQueue(Move.right(state), maxCost);
+                addQueue(Move.downAndLeft(state), maxCost);
+                addQueue(Move.upAndLeft(state), maxCost);
+                addQueue(Move.downAndRight(state), maxCost);
+                addQueue(Move.downAndLeft(state), maxCost);
             }else{
                 Iterator<State> iteratorState = visited.iterator();
                 while (iteratorState.hasNext()){
                     if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
                         visited.add(state);
+
+                        addQueue(Move.up(state), maxCost);
+                        addQueue(Move.down(state), maxCost);
+                        addQueue(Move.left(state), maxCost);
+                        addQueue(Move.right(state), maxCost);
+                        addQueue(Move.downAndLeft(state), maxCost);
+                        addQueue(Move.upAndLeft(state), maxCost);
+                        addQueue(Move.downAndRight(state), maxCost);
+                        addQueue(Move.downAndLeft(state), maxCost);
                     }
                 }
             }
 
-            addQueue(Move.up(state), maxCost);
-            addQueue(Move.down(state), maxCost);
-            addQueue(Move.left(state), maxCost);
-            addQueue(Move.right(state), maxCost);
-            addQueue(Move.downAndLeft(state), maxCost);
-            addQueue(Move.upAndLeft(state), maxCost);
-            addQueue(Move.downAndRight(state), maxCost);
-            addQueue(Move.downAndLeft(state), maxCost);
+
         }
         return false;
     }
