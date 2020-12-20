@@ -44,7 +44,7 @@ public class AStarH1TreeSearch {
             addQueue(Move.downAndLeft(state));
             addQueue(Move.upAndLeft(state));
             addQueue(Move.downAndRight(state));
-            addQueue(Move.downAndLeft(state));
+            addQueue(Move.upAndRight(currentState));
         }
     }
 

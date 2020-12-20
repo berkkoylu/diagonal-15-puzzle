@@ -5,24 +5,20 @@ public class BFS {
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
-    int[][] puzzle;
 
     public static HashSet<State> visited = new HashSet<>();
     public static final Queue<State> frontier = new LinkedList<>();
 
 
-    public BFS(int[][] puzzle) {
-        this.puzzle = puzzle;
-    }
 
-    public static void solve(State state) {
+    public  void solve(State state) {
         frontier.clear();
         frontier.add(state);
-        State currentState = state;
+        State currentState;
         while (!frontier.isEmpty()) {
-            state = frontier.poll();
-            if (isSolution(state.getMatrixPuzzle())) {
-                currentState = state;
+            currentState = frontier.poll();
+
+            if (isSolution(currentState.getMatrixPuzzle())) {
                 while (currentState != null) {
                     printPuzzle(currentState.getMatrixPuzzle());
                     System.out.println("----------- cost of move is " + currentState.getCost());
@@ -31,67 +27,52 @@ public class BFS {
                 System.out.println("solved");
                 break;
             }
-            if(visited.isEmpty()){
-                visited.add(state);
+            visited.add(currentState);
 
-                addQueue(Move.up(state));
-                addQueue(Move.up(state));
-                addQueue(Move.left(state));
-                addQueue(Move.right(state));
-                addQueue(Move.downAndLeft(state));
-                addQueue(Move.upAndLeft(state));
-                addQueue(Move.downAndRight(state));
-                addQueue(Move.downAndLeft(state));
-
-            }else{
-                Iterator<State> iteratorState = visited.iterator();
-                while (iteratorState.hasNext()){
-                    if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
-                        visited.add(state);
-
-                        addQueue(Move.up(state));
-                        addQueue(Move.up(state));
-                        addQueue(Move.left(state));
-                        addQueue(Move.right(state));
-                        addQueue(Move.downAndLeft(state));
-                        addQueue(Move.upAndLeft(state));
-                        addQueue(Move.downAndRight(state));
-                        addQueue(Move.downAndLeft(state));
-                    }
-                }
-            }
-        }
-        if(!isSolution(state.getMatrixPuzzle())){
-            System.out.println("Solution not found");
+            addQueue(Move.up(currentState));
+            addQueue(Move.down(currentState));
+            addQueue(Move.left(currentState));
+            addQueue(Move.right(currentState));
+            addQueue(Move.downAndLeft(currentState));
+            addQueue(Move.upAndLeft(currentState));
+            addQueue(Move.downAndRight(currentState));
+            addQueue(Move.upAndRight(currentState));
         }
     }
 
-    public static boolean isSolution(int[][] puzzle) {
-        if (Arrays.deepEquals(puzzle, solution)) {
-            return true;
-        } else {
-            return false;
-        }
+    public  boolean isSolution(int[][] puzzle) {
+        return Arrays.deepEquals(puzzle, solution);
     }
 
-    public static void addQueue(State state) {
+
+    public void addQueue(State state) {
 
         if(state != null){
-            if(frontier.isEmpty()){
+            if ( searchVisited(state) && searchFrontier(state) ) {
                 frontier.add(state);
-            }else {
-                Iterator<State> iteratorQueue = frontier.iterator();
-                while(iteratorQueue.hasNext()){
-                    if(!Arrays.deepEquals(iteratorQueue.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
-                        frontier.add(state);
-                        break;
-                    }
-                }
             }
-
         }
-
     }
+
+    public boolean searchVisited(State state){
+        for (State tempState: visited) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean searchFrontier(State state) {
+        for (State tempState : frontier) {
+            if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void printPuzzle(int[][] puzzle) {
         for (int i = 0; i < 4; i++) {

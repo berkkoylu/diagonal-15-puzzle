@@ -7,7 +7,7 @@ public class AStarH2 {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
-    private final Set<State> visited = new HashSet<>();
+   private final Set<State> visited = new HashSet<>();
    private final Queue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
@@ -43,7 +43,9 @@ public class AStarH2 {
             addQueue(Move.downAndLeft(currentState));
             addQueue(Move.upAndLeft(currentState));
             addQueue(Move.downAndRight(currentState));
-            addQueue(Move.downAndLeft(currentState));
+            addQueue(Move.upAndRight(currentState));
+
+
         }
     }
 
@@ -113,11 +115,7 @@ public class AStarH2 {
 
 
     public  boolean isSolution(int[][] puzzle) {
-        if (Arrays.deepEquals(puzzle, solutionMatrix)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Arrays.deepEquals(puzzle, solutionMatrix);
     }
 
     public  int calculateHeuristicH2(State state) {

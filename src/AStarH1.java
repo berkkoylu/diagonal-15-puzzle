@@ -46,7 +46,8 @@ public class AStarH1 {
             addQueue(Move.downAndLeft(currentState));
             addQueue(Move.upAndLeft(currentState));
             addQueue(Move.downAndRight(currentState));
-            addQueue(Move.downAndLeft(currentState));
+            addQueue(Move.upAndRight(currentState));
+
         }
     }
 

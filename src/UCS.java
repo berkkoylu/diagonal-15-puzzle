@@ -21,7 +21,6 @@ public class UCS {
         State currentState;
         while (!frontier.isEmpty()) {
             currentState = frontier.poll();
-//            System.out.println(frontier.size());
 
             if (isSolution(currentState.getMatrixPuzzle())) {
                 while (currentState != null) {
@@ -41,7 +40,7 @@ public class UCS {
             addQueue(Move.downAndLeft(currentState));
             addQueue(Move.upAndLeft(currentState));
             addQueue(Move.downAndRight(currentState));
-            addQueue(Move.downAndLeft(currentState));
+            addQueue(Move.upAndRight(currentState));
         }
     }
 
@@ -49,13 +48,30 @@ public class UCS {
         return Arrays.deepEquals(puzzle, solution);
     }
 
+
     public void addQueue(State state) {
-        if (state != null && searchExploredAndVisited(state)) {
-            frontier.add(state);
-        }else if(searchAtFrontier(state)){
-            swapFrontier(state);
+
+        if(state != null){
+            if ( searchVisited(state) && searchFrontier(state) ) {
+                frontier.add(state);
+            }else if(searchAtFrontier(state)){
+                swapFrontier(state);
+            }
         }
     }
+
+//    public void addQueue(State state) {
+//
+//        if(state != null){
+//            if ( searchExploredAndVisited(state)) {
+//                frontier.add(state);
+//            }else if(searchAtFrontier(state)){
+//                swapFrontier(state);
+//            }
+//        }
+//
+//
+//    }
 
     public void swapFrontier(State state){
 
@@ -72,9 +88,6 @@ public class UCS {
     }
 
     public boolean searchAtFrontier(State state){
-        if (state == null){
-            return false;
-        }
 
         for (State tempState: frontier) {
             if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
@@ -82,8 +95,28 @@ public class UCS {
             }
         }
         return false;
-
     }
+
+    public boolean searchVisited(State state){
+        for (State tempState: visited) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean searchFrontier(State state) {
+        for (State tempState : frontier) {
+            if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     public boolean searchExploredAndVisited(State state){
         if (state == null){
