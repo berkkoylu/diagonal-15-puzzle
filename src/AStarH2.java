@@ -31,7 +31,7 @@ public class AStarH2 {
                     System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
                 }
-                System.out.println("solved");
+                System.out.println("solved" + visited.size());
                 break;
             }
             visited.add(currentState);
@@ -50,17 +50,40 @@ public class AStarH2 {
     }
 
     public void addQueue(State state) {
-        if (state != null && searchExploredAndVisited(state)) {
-            int heuristicValue = calculateHeuristicH2(state);
-            state.setHeuristic(heuristicValue);
-            frontier.add(state);
-        }else if(searchAtFrontier(state)){
-            int heuristicValue = calculateHeuristicH2(state);
-            state.setHeuristic(heuristicValue);
-            swapFrontier(state);
+
+        if (state != null) {
+            if (searchVisited(state) && searchFrontier(state)) {
+                int heuristicValue = calculateHeuristicH2(state);
+                state.setHeuristic(heuristicValue);
+                frontier.add(state);
+            } else if (searchAtFrontier(state)) {
+                int heuristicValue = calculateHeuristicH2(state);
+                state.setHeuristic(heuristicValue);
+                swapFrontier(state);
+            }
         }
     }
 
+
+
+    public boolean searchVisited(State state){
+        for (State tempState: visited) {
+            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean searchFrontier(State state) {
+        for (State tempState : frontier) {
+            if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 
@@ -71,7 +94,6 @@ public class AStarH2 {
                 if((tempState.getCost() + tempState.getHeuristic()) > (state.getCost() + state.getHeuristic())){
                     frontier.remove(tempState);
                     frontier.add(state);
-//                    System.out.println("swap oldu");
                     break;
                 }
             }

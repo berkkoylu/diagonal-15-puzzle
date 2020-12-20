@@ -50,7 +50,6 @@ public class UCS {
 
 
     public void addQueue(State state) {
-
         if(state != null){
             if ( searchVisited(state) && searchFrontier(state) ) {
                 frontier.add(state);

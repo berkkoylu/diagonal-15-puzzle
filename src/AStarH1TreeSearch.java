@@ -32,11 +32,11 @@ public class AStarH1TreeSearch {
                     System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
                 }
-                System.out.println("solved");
+                System.out.println("solved" + visited.size());
                 break;
             }
 
-            visited.add(currentState);
+            visited.add(state);
             addQueue(Move.up(state));
             addQueue(Move.down(state));
             addQueue(Move.left(state));
@@ -44,7 +44,7 @@ public class AStarH1TreeSearch {
             addQueue(Move.downAndLeft(state));
             addQueue(Move.upAndLeft(state));
             addQueue(Move.downAndRight(state));
-            addQueue(Move.upAndRight(currentState));
+            addQueue(Move.upAndRight(state));
         }
     }
 
