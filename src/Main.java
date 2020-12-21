@@ -7,10 +7,15 @@ public class Main {
     public static void main(String[] args) {
 //        int[][] puzzle;
 
-        int[][] puzzle = {{1, 3, 4, 0},
-                          {12, 2, 14, 5},
-                          {11, 13, 15, 6},
-                          {10, 9, 8, 7}};
+         int[][] puzzle = {{1, 2, 3, 4},
+                          {12, 13, 14, 5},
+                          {11, 10, 15, 6},
+                          {0, 9, 8, 7}};
+
+//        int[][] puzzle = {{1, 2, 3, 4},
+//                          {12, 13, 14, 5},
+//                          {11, 0, 6, 15},
+//                          {10, 9, 8, 7}};
 
 //                int[][] puzzle = {{1, 14, 3, 4},
 //                                 {2, 13, 0, 5},
@@ -60,13 +65,12 @@ public class Main {
         System.out.println("-----------THIS IS INITIAL STATE--------");
 
         State initialState = new State(puzzle);
+        DFSupdated dfs =  new DFSupdated();
+        dfs.solve(initialState);
 
 
-//
-
-
-        AStarH2 aStarH2 =  new AStarH2();
-        aStarH2.solve(initialState);
+//        AStarH2 aStarH2 =  new AStarH2();
+//        aStarH2.solve(initialState);
 
 //        System.out.println("---------UCS--------");
 //        System.out.println();

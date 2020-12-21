@@ -5,15 +5,12 @@ public class DFS {
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
-    int[][] puzzle;
 
     public static HashSet<State> visited = new HashSet<State>();
     public static final Stack<State> frontier = new Stack<>();
 
 
-    public DFS(int[][] puzzle) {
-        this.puzzle = puzzle;
-    }
+
 
     public static void solve(State state) {
         frontier.clear();
