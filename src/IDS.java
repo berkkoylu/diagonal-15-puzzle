@@ -25,6 +25,8 @@ public class IDS {
             State currentState = state;
             while(!frontier.isEmpty()){
                 state = frontier.pop();
+
+
                 if(isSolution(state.getMatrixPuzzle())){
                     currentState = state;
                     while(currentState != null){
@@ -35,7 +37,8 @@ public class IDS {
                     System.out.println("solved");
                     return;
                 }
-                if(currentState.getDepth() < currentDepth){
+
+                if(currentState.getDepth() <= currentDepth){
                     currentState.setDepth(currentState.getDepth() + 1);
                     System.out.println(currentState.getDepth());
 

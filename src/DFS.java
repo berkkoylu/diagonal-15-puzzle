@@ -6,7 +6,7 @@ public class DFS {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
-    public static HashSet<State> visited = new HashSet<State>();
+    private static HashSet<State> visited = new HashSet<State>();
     public static final Stack<State> frontier = new Stack<>();
 
 

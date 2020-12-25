@@ -26,12 +26,26 @@ public class AStarH2 {
 //            System.out.println(frontier.size());
 
             if (isSolution(currentState.getMatrixPuzzle())) {
+                List<State> list = new ArrayList<>();
                 while (currentState != null) {
-                    printPuzzle(currentState.getMatrixPuzzle());
-                    System.out.println("----------- cost of move is " + currentState.getCost());
+                    list.add(currentState);
+//                    printPuzzle(currentState.getMatrixPuzzle());
+//                    System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
                 }
-                System.out.println("solved" + visited.size());
+
+                Collections.reverse(list);
+
+                for (State reverseState: list
+                ) {
+                    printPuzzle(reverseState.getMatrixPuzzle());
+                    System.out.println("----------- cost of move is " + reverseState.getCost());
+
+                }
+
+
+                System.out.println("solved");
+                System.out.println("Number of expanded node: " + visited.size());
                 break;
             }
             visited.add(currentState);
@@ -157,14 +171,15 @@ public class AStarH2 {
 
         return heuristicValueH2;
     }
-
-    public  void printPuzzle(int[][] puzzle) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+    public void printPuzzle(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.printf("%4d", anInt);
             }
             System.out.println();
         }
     }
+
+
 
 }

@@ -1,15 +1,15 @@
 import java.util.*;
 
-public class DFSupdated{
+public class DFSupdated {
     static int[][] solution = {{1, 2, 3, 4},
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
-    public static HashSet<State> visited = new HashSet<>();
-    public static final Stack<State> frontier = new Stack<>();
-    
-    public  void solve(State state) {
+    private final HashSet<State> visited = new HashSet<>();
+    private final Stack<State> frontier = new Stack<>();
+
+    public void solve(State state) {
         frontier.clear();
         frontier.add(state);
         State currentState;
@@ -38,23 +38,23 @@ public class DFSupdated{
         }
     }
 
-    public  boolean isSolution(int[][] puzzle) {
+    public boolean isSolution(int[][] puzzle) {
         return Arrays.deepEquals(puzzle, solution);
     }
 
 
     public void addQueue(State state) {
 
-        if(state != null){
-            if ( searchVisited(state) && searchFrontier(state) ) {
+        if (state != null) {
+            if (searchVisited(state) && searchFrontier(state)) {
                 frontier.push(state);
             }
         }
     }
 
-    public boolean searchVisited(State state){
-        for (State tempState: visited) {
-            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
+    public boolean searchVisited(State state) {
+        for (State tempState : visited) {
+            if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
                 return false;
             }
         }

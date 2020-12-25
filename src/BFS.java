@@ -6,8 +6,8 @@ public class BFS {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
-    public static HashSet<State> visited = new HashSet<>();
-    public static final Queue<State> frontier = new LinkedList<>();
+    private  final HashSet<State> visited = new HashSet<>();
+    private  final Queue<State> frontier = new LinkedList<>();
 
 
 

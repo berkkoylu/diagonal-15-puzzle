@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) {
 //        int[][] puzzle;
 
-         int[][] puzzle = {{1, 2, 3, 4},
-                          {12, 13, 14, 5},
-                          {11, 10, 15, 6},
-                          {0, 9, 8, 7}};
+//        int[][] puzzle = {{1, 2, 3, 4},
+//                          {12, 13, 14, 5},
+//                          {0, 10, 15, 6},
+//                          {11, 9, 8, 7}};
 
 //        int[][] puzzle = {{1, 2, 3, 4},
 //                          {12, 13, 14, 5},
@@ -39,10 +39,10 @@ public class Main {
 
 
 //        // 1. puzzle
-//        int[][] puzzle = {{0, 1, 3, 4},
-//                {12, 13, 2, 5},
-//                {11, 14, 15, 6},
-//                {10, 9, 8, 7}};
+        int[][] puzzle = {{0, 1, 3, 4},
+                {12, 13, 2, 5},
+                {11, 14, 15, 6},
+                {10, 9, 8, 7}};
 
 
 //        // 2. puzzle
@@ -51,12 +51,11 @@ public class Main {
 //                {11, 12, 9, 6},
 //                {0, 10, 8, 7}};
 
-        // 3. puzzle
+//         3. puzzle
 //        int[][] puzzle = {{1, 13, 3, 4},
 //                {12, 11, 2, 5},
 //                {9, 8, 15, 7},
 //                {10, 6, 14, 0}};
-
 
 
         int depth = 5;
@@ -64,35 +63,46 @@ public class Main {
         printPuzzle(puzzle);
         System.out.println("-----------THIS IS INITIAL STATE--------");
 
+
         State initialState = new State(puzzle);
-        DFSupdated dfs =  new DFSupdated();
-        dfs.solve(initialState);
-
-
-//        AStarH2 aStarH2 =  new AStarH2();
-//        aStarH2.solve(initialState);
-
-//        System.out.println("---------UCS--------");
-//        System.out.println();
+//
+//
 //        UCS ucs = new UCS();
 //        ucs.solve(initialState);
-        System.out.println("---------BFS--------");
-        System.out.println();
-//
-//        AStarH1 aStarH1 = new AStarH1();
-//        aStarH1.solve(initialState);
+
+        //       ILS.solve(initialState,17);
+
+
+//            AStarH1 aStarH1 = new AStarH1();
+//            aStarH1.solve(initialState);
+
+            AStarH2 aStarH2 =  new AStarH2();
+            aStarH2.solve(initialState);
+
+
+
 
 //        BFS bfs = new BFS();
 //        bfs.solve(initialState);
 
+//
+//        IDSdifferent idSdifferent = new IDSdifferent();
+//        idSdifferent.solve(initialState, 20);
 
-//       DFS.solve(initialState);
+//        DFSupdated dfs =  new DFSupdated();
+//        dfs.solve(initialState);
 
-//        IDS.solve(initialState,depth);
+
+
+
+
+
+
+
+
+//        ILS.solve(initialState, 10);
 //        boolean isSolvableWithCost = ILS.solve(initialState,7);
 //        System.out.println(isSolvableWithCost);
-//        UCS.solve(initialState);
-
 
 
     }

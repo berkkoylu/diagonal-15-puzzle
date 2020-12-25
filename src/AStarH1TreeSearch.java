@@ -57,7 +57,7 @@ public class AStarH1TreeSearch {
     }
 
     public static void addQueue(State state) {
-        if (state != null && !visited.contains(state)) {
+        if (state != null ) {
             int heuristicValue = calculateHeuristicH1(state);
             state.setHeuristic(heuristicValue);
             queue.add(state);

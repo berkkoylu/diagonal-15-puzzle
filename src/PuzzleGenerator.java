@@ -55,8 +55,8 @@ public class PuzzleGenerator {
     }
 
     public static void makeMove(int space, int tile){
-        int locationSpace[] = findSpace(space);
-        int locationTile[] = findSpace(tile);
+        int[] locationSpace = findSpace(space);
+        int[] locationTile = findSpace(tile);
 
         puzzle[locationSpace[0]][locationSpace[1]] = tile;
         puzzle[locationTile[0]][locationTile[1]] = 0;

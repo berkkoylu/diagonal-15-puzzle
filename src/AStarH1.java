@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class AStarH1 {
     static int[][] solutionMatrix = {{1, 2, 3, 4},
@@ -9,9 +6,10 @@ public class AStarH1 {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
+    private static int counter = 0;
 
-    private final HashSet<State> visited = new HashSet<State>();
-    private final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
+    private final Set<State> visited = new HashSet<State>();
+    private final Queue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
             return (state.getCost() + state.getHeuristic()) - (t1.getCost() + t1.getHeuristic());
@@ -25,16 +23,34 @@ public class AStarH1 {
         State currentState;
         while (!frontier.isEmpty()) {
             currentState = frontier.poll();
-//            System.out.println(frontier.size());
 
             if (isSolution(currentState.getMatrixPuzzle())) {
+                List<State> list = new ArrayList<>();
                 while (currentState != null) {
-                    printPuzzle(currentState.getMatrixPuzzle());
-                    System.out.println("----------- cost of move is " + currentState.getCost());
+                    list.add(currentState);
+//                    printPuzzle(currentState.getMatrixPuzzle());
+//                    System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
                 }
-                System.out.println("solved" + visited.size());
+
+                Collections.reverse(list);
+
+                for (State reverseState: list
+                ) {
+                    printPuzzle(reverseState.getMatrixPuzzle());
+                    System.out.println("----------- cost of move is " + reverseState.getCost());
+
+                }
+
+
+                System.out.println("solved");
+                System.out.println("Number of expanded node: " + visited.size());
                 break;
+            }
+
+            if(currentState.getCost() == counter){
+                System.out.println("Cost is: " + counter);
+                counter++;
             }
             visited.add(currentState);
 
@@ -149,14 +165,15 @@ public class AStarH1 {
         return heuristicValueH1;
     }
 
-    public void printPuzzle(int[][] puzzle) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+    public void printPuzzle(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.printf("%4d", anInt);
             }
             System.out.println();
         }
     }
+
 
 }
 

@@ -5,7 +5,6 @@ public class ILS {
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
-    int[][] puzzle;
 
     public static HashSet<State> visited = new HashSet<>();
     public static final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
@@ -15,9 +14,6 @@ public class ILS {
         }
     });
 
-    public ILS(int[][] puzzle) {
-        this.puzzle = puzzle;
-    }
 
     public static boolean solve(State state, int maxCost) {
         frontier.clear();
@@ -36,7 +32,7 @@ public class ILS {
                 return true;
             }
 
-            if(visited.isEmpty()){
+
                 visited.add(state);
 
                 addQueue(Move.up(state), maxCost);
@@ -47,24 +43,6 @@ public class ILS {
                 addQueue(Move.upAndLeft(state), maxCost);
                 addQueue(Move.downAndRight(state), maxCost);
                 addQueue(Move.downAndLeft(state), maxCost);
-            }else{
-                Iterator<State> iteratorState = visited.iterator();
-                while (iteratorState.hasNext()){
-                    if(!Arrays.deepEquals(iteratorState.next().getMatrixPuzzle(),state.getMatrixPuzzle())){
-                        visited.add(state);
-
-                        addQueue(Move.up(state), maxCost);
-                        addQueue(Move.down(state), maxCost);
-                        addQueue(Move.left(state), maxCost);
-                        addQueue(Move.right(state), maxCost);
-                        addQueue(Move.downAndLeft(state), maxCost);
-                        addQueue(Move.upAndLeft(state), maxCost);
-                        addQueue(Move.downAndRight(state), maxCost);
-                        addQueue(Move.downAndLeft(state), maxCost);
-                    }
-                }
-            }
-
 
         }
         return false;

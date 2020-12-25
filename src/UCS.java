@@ -6,6 +6,8 @@ public class UCS {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
+    private static int counter = 0;
+
    private final HashSet<State> visited = new HashSet<>();
    private final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
@@ -23,13 +25,32 @@ public class UCS {
             currentState = frontier.poll();
 
             if (isSolution(currentState.getMatrixPuzzle())) {
+                List<State> list = new ArrayList<>();
                 while (currentState != null) {
-                    printPuzzle(currentState.getMatrixPuzzle());
-                    System.out.println("----------- cost of move is " + currentState.getCost());
+                    list.add(currentState);
+//                    printPuzzle(currentState.getMatrixPuzzle());
+//                    System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
                 }
+
+                Collections.reverse(list);
+
+                for (State reverseState: list
+                     ) {
+                    printPuzzle(reverseState.getMatrixPuzzle());
+                    System.out.println("----------- cost of move is " + reverseState.getCost());
+
+                }
+
+
                 System.out.println("solved");
+                System.out.println("Number of expanded node: " + visited.size());
                 break;
+            }
+
+            if(currentState.getCost() == counter){
+                System.out.println("Cost is: " + counter);
+                counter++;
             }
             visited.add(currentState);
 
@@ -47,6 +68,7 @@ public class UCS {
     public boolean isSolution(int[][] puzzle) {
         return Arrays.deepEquals(puzzle, solution);
     }
+
 
 
     public void addQueue(State state) {
@@ -115,8 +137,6 @@ public class UCS {
         return true;
     }
 
-
-
     public boolean searchExploredAndVisited(State state){
         if (state == null){
             return false;
@@ -137,12 +157,13 @@ public class UCS {
     }
 
 
-    public void printPuzzle(int[][] puzzle) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+    public void printPuzzle(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.printf("%4d", anInt);
             }
             System.out.println();
         }
     }
+
 }
