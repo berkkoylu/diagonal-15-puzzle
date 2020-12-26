@@ -89,17 +89,10 @@ public class Main {
 //        IDSdifferent idSdifferent = new IDSdifferent();
 //        idSdifferent.solve(initialState, 20);
 
-//        DFSupdated dfs =  new DFSupdated();
-//        dfs.solve(initialState);
+        DFS dfs =  new DFS();
+        dfs.solve(initialState);
 
-
-
-
-
-
-
-
-
+        
 //        ILS.solve(initialState, 10);
 //        boolean isSolvableWithCost = ILS.solve(initialState,7);
 //        System.out.println(isSolvableWithCost);

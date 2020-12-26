@@ -72,7 +72,7 @@ public class DFS {
     }
 
 
-    public static void printPuzzle(int[][] puzzle) {
+    public  void printPuzzle(int[][] puzzle) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 System.out.printf("%d  ", puzzle[i][j]);
