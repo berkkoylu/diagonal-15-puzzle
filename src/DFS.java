@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DFSupdated {
+public class DFS {
     static int[][] solution = {{1, 2, 3, 4},
             {12, 13, 14, 5},
             {11, 0, 15, 6},

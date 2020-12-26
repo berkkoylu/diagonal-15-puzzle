@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Stack;
 
-public class IDSdifferent {
+public class IDS {
 
     static int[][] solution = {{1, 2, 3, 4},
             {12, 13, 14, 5},
