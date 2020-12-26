@@ -5,44 +5,24 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-//        int[][] puzzle;
+
+
+//        int[][] puzzle = {{1, 3, 14, 4},
+//                          {12, 2, 15, 5},
+//                          {11, 13, 0, 6},
+//                          {10, 9, 8, 7}};
 
 //        int[][] puzzle = {{1, 2, 3, 4},
 //                          {12, 13, 14, 5},
-//                          {0, 10, 15, 6},
-//                          {11, 9, 8, 7}};
-
-//        int[][] puzzle = {{1, 2, 3, 4},
-//                          {12, 13, 14, 5},
-//                          {11, 0, 6, 15},
-//                          {10, 9, 8, 7}};
-
-//                int[][] puzzle = {{1, 14, 3, 4},
-//                                 {2, 13, 0, 5},
-//                                 {12, 10, 15, 6},
-//                                 {11, 9, 8, 7}};
-
-//                        int[][] puzzle = {{1, 14, 3, 4},
-//                                 {2, 13, 0, 5},
-//                                 {12, 10, 15, 6},
-//                                 {11, 9, 8, 7}};
-
-
-//        int[][] puzzle = {{1, 2, 3, 4},
-//                        {12, 13, 14, 5},
-//                        {11, 9, 15, 6},
-//                        {10, 8, 7, 0}};
-//        int[][] puzzle = {{1, 0, 3, 4},
-//                          {12, 2, 14, 5},
-//                          {11, 13, 15, 6},
-//                          {10, 9, 8, 7}};
+//                          {10, 11, 0, 6},
+//                          {9, 8, 15, 7}};
 
 
 //        // 1. puzzle
-        int[][] puzzle = {{0, 1, 3, 4},
-                {12, 13, 2, 5},
-                {11, 14, 15, 6},
-                {10, 9, 8, 7}};
+//        int[][] puzzle = {{0, 1, 3, 4},
+//                {12, 13, 2, 5},
+//                {11, 14, 15, 6},
+//                {10, 9, 8, 7}};
 
 
 //        // 2. puzzle
@@ -59,40 +39,47 @@ public class Main {
 
 
         int depth = 5;
-//        puzzle = PuzzleGenerator.generatePuzzle(depth);
+        int[][] puzzle; puzzle = PuzzleGenerator.generatePuzzle(depth);
+
+        System.out.println("##########################################");
+        System.out.println("##########################################");
+        System.out.println("##########################################");
+
         printPuzzle(puzzle);
+
         System.out.println("-----------THIS IS INITIAL STATE--------");
 
 
         State initialState = new State(puzzle);
-//
-//
+
+//        ILS ils = new ILS();
+//        ils.solve(initialState);
+
 //        UCS ucs = new UCS();
 //        ucs.solve(initialState);
 
         //       ILS.solve(initialState,17);
 
 
-//            AStarH1 aStarH1 = new AStarH1();
-//            aStarH1.solve(initialState);
+            AStarH1 aStarH1 = new AStarH1();
+            aStarH1.solve(initialState);
 
-            AStarH2 aStarH2 =  new AStarH2();
-            aStarH2.solve(initialState);
-
-
+//            AStarH2 aStarH2 =  new AStarH2();
+//            aStarH2.solve(initialState);
 
 
+
+//
 //        BFS bfs = new BFS();
 //        bfs.solve(initialState);
 
-//
-//        IDSdifferent idSdifferent = new IDSdifferent();
-//        idSdifferent.solve(initialState, 20);
+//        IDS ids = new IDS();
+//        ids.solve(initialState);
 
-        DFS dfs =  new DFS();
-        dfs.solve(initialState);
+//        DFS dfs =  new DFS();
+//        dfs.solve(initialState);
 
-        
+
 //        ILS.solve(initialState, 10);
 //        boolean isSolvableWithCost = ILS.solve(initialState,7);
 //        System.out.println(isSolvableWithCost);
@@ -100,10 +87,10 @@ public class Main {
 
     }
 
-    public static void printPuzzle(int[][] puzzle) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+    public static void printPuzzle(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.printf("%4d", anInt);
             }
             System.out.println();
         }

@@ -6,7 +6,7 @@ public class AStarH1 {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
-    private static int counter = 0;
+    private int maxNumberOfStoredInMemory = 0;
 
     private final Set<State> visited = new HashSet<State>();
     private final Queue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
@@ -28,8 +28,7 @@ public class AStarH1 {
                 List<State> list = new ArrayList<>();
                 while (currentState != null) {
                     list.add(currentState);
-//                    printPuzzle(currentState.getMatrixPuzzle());
-//                    System.out.println("----------- cost of move is " + currentState.getCost());
+
                     currentState = currentState.getPreviousState();
                 }
 
@@ -42,17 +41,17 @@ public class AStarH1 {
 
                 }
 
+                System.out.println("Solved");
+                System.out.println("Total number of expanded node: " + visited.size());
 
-                System.out.println("solved");
-                System.out.println("Number of expanded node: " + visited.size());
+                System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
                 break;
             }
 
-            if(currentState.getCost() == counter){
-                System.out.println("Cost is: " + counter);
-                counter++;
-            }
+
             visited.add(currentState);
+
+
 
             addQueue(Move.up(currentState));
             addQueue(Move.down(currentState));
@@ -63,8 +62,12 @@ public class AStarH1 {
             addQueue(Move.downAndRight(currentState));
             addQueue(Move.upAndRight(currentState));
 
+
+            maxNumberOfStoredInMemory = Math.max(maxNumberOfStoredInMemory, frontier.size() + visited.size());
+
         }
     }
+
 
     public void addQueue(State state) {
 

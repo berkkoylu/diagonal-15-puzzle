@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 public class IDS {
 
@@ -13,7 +11,9 @@ public class IDS {
     private final Stack<State> frontier = new Stack<>();
     private boolean solvedFlag = false;
 
-    public void solve(State state, int depthLimit) {
+    public void solve(State state) {
+
+        int depthLimit = 100000;
 
         for (int currentDepth = 0; currentDepth < depthLimit; currentDepth++) {
 
@@ -26,13 +26,25 @@ public class IDS {
                 currentState = frontier.pop();
 
                 if (isSolution(currentState.getMatrixPuzzle())) {
+                    State printState = currentState;
+                    List<State> list = new ArrayList<>();
                     while (currentState != null) {
-                        printPuzzle(currentState.getMatrixPuzzle());
-                        System.out.println("----------- cost of move is " + currentState.getCost());
+                        list.add(currentState);
                         currentState = currentState.getPreviousState();
                     }
+
+                    Collections.reverse(list);
+
+                    for (State reverseState: list
+                    ) {
+                        printPuzzle(reverseState.getMatrixPuzzle());
+                        System.out.println("----------- cost of move is " + reverseState.getCost());
+
+                    }
+
                     solvedFlag = true;
-                    System.out.println("solved");
+                    System.out.println("Solved at depth: " + printState.getDepth());
+                    System.out.println("Number of expanded node: " + visited.size());
                     break;
                 }
 

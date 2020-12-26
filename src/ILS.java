@@ -6,6 +6,8 @@ public class ILS {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
+    private boolean solvedFlag = false;
+
     public static HashSet<State> visited = new HashSet<>();
     public static final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
@@ -15,51 +17,80 @@ public class ILS {
     });
 
 
-    public static boolean solve(State state, int maxCost) {
-        frontier.clear();
-        frontier.add(state);
-        State currentState = state;
-        while (!frontier.isEmpty()) {
-            state = frontier.poll();
-            if (isSolution(state.getMatrixPuzzle())) {
-                currentState = state;
-                while (currentState != null) {
-                    printPuzzle(currentState.getMatrixPuzzle());
-                    System.out.println("----------- cost of move is " + currentState.getCost());
-                    currentState = currentState.getPreviousState();
+    public void solve(State state) {
+
+        int maxCost = 100000;
+
+        for (int currentCoast = 0; currentCoast < maxCost; currentCoast++) {
+
+            visited.clear();
+            frontier.clear();
+            frontier.add(state);
+            State currentState;
+            while (!frontier.isEmpty()) {
+                currentState = frontier.poll();
+
+                if (isSolution(currentState.getMatrixPuzzle())) {
+                    State printState = currentState;
+
+                    List<State> list = new ArrayList<>();
+                    while (currentState != null) {
+                        list.add(currentState);
+                        currentState = currentState.getPreviousState();
+                    }
+
+                    Collections.reverse(list);
+
+                    for (State reverseState : list
+                    ) {
+                        printPuzzle(reverseState.getMatrixPuzzle());
+                        System.out.println("----------- cost of move is " + reverseState.getCost());
+
+                    }
+
+                    solvedFlag = true;
+                    System.out.println("Solved at coast level: " + printState.getCost());
+                    System.out.println("Number of expanded node: " + visited.size());
+                    break;
                 }
-                System.out.println("solved");
-                return true;
+
+
+                visited.add(currentState);
+
+                addQueue(Move.up(currentState), currentCoast);
+                addQueue(Move.down(currentState), currentCoast);
+                addQueue(Move.left(currentState), currentCoast);
+                addQueue(Move.right(currentState), currentCoast);
+                addQueue(Move.downAndLeft(currentState), currentCoast);
+                addQueue(Move.upAndLeft(currentState), currentCoast);
+                addQueue(Move.downAndRight(currentState), currentCoast);
+                addQueue(Move.upAndRight(currentState), currentCoast);
+
             }
 
-
-                visited.add(state);
-
-                addQueue(Move.up(state), maxCost);
-                addQueue(Move.down(state), maxCost);
-                addQueue(Move.left(state), maxCost);
-                addQueue(Move.right(state), maxCost);
-                addQueue(Move.downAndLeft(state), maxCost);
-                addQueue(Move.upAndLeft(state), maxCost);
-                addQueue(Move.downAndRight(state), maxCost);
-                addQueue(Move.downAndLeft(state), maxCost);
+            if (solvedFlag){
+                break;
+            }
 
         }
-        return false;
     }
 
     public static boolean isSolution(int[][] puzzle) {
         return Arrays.deepEquals(puzzle, solution);
     }
 
-    public static void addQueue(State state, int maxCost) {
-        if (state != null && state.getCost() <= maxCost && searchExploredAndVisited(state)) {
-            frontier.add(state);
-        }else if(searchAtFrontier(state)){
-            swapFrontier(state);
+    public void addQueue(State state, int currentCoast) {
+        if(state != null){
+            if(state.getCost() <= currentCoast) {
+                if (searchVisited(state) && searchFrontier(state)) {
+                    frontier.add(state);
+                } else if (searchAtFrontier(state)) {
+                    swapFrontier(state);
+                }
+            }
         }
     }
-    public static void swapFrontier(State state){
+    public void swapFrontier(State state){
 
         for (State tempState: frontier) {
             if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
@@ -72,10 +103,8 @@ public class ILS {
         }
 
     }
-    public static boolean searchAtFrontier(State state){
-        if (state == null){
-            return false;
-        }
+
+    public boolean searchAtFrontier(State state){
 
         for (State tempState: frontier) {
             if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
@@ -83,20 +112,10 @@ public class ILS {
             }
         }
         return false;
-
     }
-    public static boolean searchExploredAndVisited(State state){
-        if (state == null){
-            return false;
-        }
 
+    public boolean searchVisited(State state){
         for (State tempState: visited) {
-            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
-                return false;
-            }
-        }
-
-        for (State tempState: frontier) {
             if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
                 return false;
             }
@@ -104,12 +123,21 @@ public class ILS {
         return true;
     }
 
-    public static void printPuzzle(int[][] puzzle) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+
+    public boolean searchFrontier(State state) {
+        for (State tempState : frontier) {
+            if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
+                return false;
             }
-            System.out.println();
         }
+        return true;
     }
+        public void printPuzzle(int[][] matrix) {
+            for (int[] ints : matrix) {
+                for (int anInt : ints) {
+                    System.out.printf("%4d", anInt);
+                }
+                System.out.println();
+            }
+        }
 }

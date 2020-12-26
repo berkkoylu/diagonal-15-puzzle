@@ -17,12 +17,24 @@ public class DFS {
             currentState = frontier.pop();
 
             if (isSolution(currentState.getMatrixPuzzle())) {
+                List<State> list = new ArrayList<>();
                 while (currentState != null) {
-                    printPuzzle(currentState.getMatrixPuzzle());
-                    System.out.println("----------- cost of move is " + currentState.getCost());
+                    list.add(currentState);
+
                     currentState = currentState.getPreviousState();
                 }
-                System.out.println("solved");
+
+                Collections.reverse(list);
+
+                for (State reverseState: list
+                ) {
+                    printPuzzle(reverseState.getMatrixPuzzle());
+                    System.out.println("----------- cost of move is " + reverseState.getCost());
+
+                }
+
+                System.out.println("Solved");
+                System.out.println("Total number of expanded node: " + visited.size());
                 break;
             }
             visited.add(currentState);
@@ -72,10 +84,10 @@ public class DFS {
     }
 
 
-    public  void printPuzzle(int[][] puzzle) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ", puzzle[i][j]);
+    public void printPuzzle(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.printf("%4d", anInt);
             }
             System.out.println();
         }

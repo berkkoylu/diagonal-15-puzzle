@@ -28,8 +28,6 @@ public class UCS {
                 List<State> list = new ArrayList<>();
                 while (currentState != null) {
                     list.add(currentState);
-//                    printPuzzle(currentState.getMatrixPuzzle());
-//                    System.out.println("----------- cost of move is " + currentState.getCost());
                     currentState = currentState.getPreviousState();
                 }
 
@@ -43,8 +41,8 @@ public class UCS {
                 }
 
 
-                System.out.println("solved");
-                System.out.println("Number of expanded node: " + visited.size());
+                System.out.println("Solved");
+                System.out.println("Total number of expanded node: " + visited.size());
                 break;
             }
 
@@ -137,6 +135,7 @@ public class UCS {
         return true;
     }
 
+    
     public boolean searchExploredAndVisited(State state){
         if (state == null){
             return false;

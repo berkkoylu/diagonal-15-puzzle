@@ -18,12 +18,24 @@ public class PuzzleGenerator {
             int randomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
             if(lastMovedTile != randomElement){
                 makeMove(0,randomElement);
+                lastMovedTile = randomElement;
+
+                printPuzzle(puzzle);
+                System.out.printf("Changed 0 with %d\n", randomElement);
+                System.out.println("##########################################");
+
+
             }else{
                 possibleMoves.remove(possibleMoves.remove(possibleMoves.indexOf(randomElement)));
                 int newRandomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
+                lastMovedTile = newRandomElement;
                 makeMove(0,newRandomElement);
+                printPuzzle(puzzle);
+                System.out.printf("cycle detected %d and finding new element %d \n",randomElement, newRandomElement);
+                System.out.println("##########################################");
+
+
             }
-            lastMovedTile = randomElement;
         }
         return puzzle;
     }
@@ -63,10 +75,10 @@ public class PuzzleGenerator {
 
     }
 
-    public static void printPuzzle(){
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%d  ",puzzle[i][j]);
+    public static void printPuzzle(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.printf("%4d", anInt);
             }
             System.out.println();
         }
