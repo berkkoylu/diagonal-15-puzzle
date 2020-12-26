@@ -7,8 +7,10 @@ public class UCS {
             {10, 9, 8, 7}};
 
     private static int counter = 0;
+    private int maxNumberOfStoredInMemory = 0;
 
-   private final HashSet<State> visited = new HashSet<>();
+
+    private final HashSet<State> visited = new HashSet<>();
    private final PriorityQueue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
@@ -43,6 +45,8 @@ public class UCS {
 
                 System.out.println("Solved");
                 System.out.println("Total number of expanded node: " + visited.size());
+                System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
+
                 break;
             }
 
@@ -60,6 +64,9 @@ public class UCS {
             addQueue(Move.upAndLeft(currentState));
             addQueue(Move.downAndRight(currentState));
             addQueue(Move.upAndRight(currentState));
+
+            maxNumberOfStoredInMemory = Math.max(maxNumberOfStoredInMemory, frontier.size() + visited.size());
+
         }
     }
 
@@ -135,7 +142,7 @@ public class UCS {
         return true;
     }
 
-    
+
     public boolean searchExploredAndVisited(State state){
         if (state == null){
             return false;

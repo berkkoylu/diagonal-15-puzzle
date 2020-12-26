@@ -7,7 +7,9 @@ public class AStarH2 {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
-   private final Set<State> visited = new HashSet<>();
+    private int maxNumberOfStoredInMemory = 0;
+
+    private final Set<State> visited = new HashSet<>();
    private final Queue<State> frontier = new PriorityQueue<>(new Comparator<State>() {
         @Override
         public int compare(State state, State t1) {
@@ -43,6 +45,8 @@ public class AStarH2 {
 
                 System.out.println("Solved");
                 System.out.println("Total number of expanded node: " + visited.size());
+                System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
+
                 break;
             }
             visited.add(currentState);
@@ -55,6 +59,9 @@ public class AStarH2 {
             addQueue(Move.upAndLeft(currentState));
             addQueue(Move.downAndRight(currentState));
             addQueue(Move.upAndRight(currentState));
+
+            maxNumberOfStoredInMemory = Math.max(maxNumberOfStoredInMemory, frontier.size() + visited.size());
+
 
 
         }

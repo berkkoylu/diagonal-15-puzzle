@@ -6,6 +6,9 @@ public class IDS {
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
+    private int maxNumberOfStoredInMemory = 0;
+    private int totalVisitedNode = 0;
+
 
     private final HashSet<State> visited = new HashSet<>();
     private final Stack<State> frontier = new Stack<>();
@@ -44,7 +47,9 @@ public class IDS {
 
                     solvedFlag = true;
                     System.out.println("Solved at depth: " + printState.getDepth());
-                    System.out.println("Number of expanded node: " + visited.size());
+                    System.out.println("Total number of expanded node: " + totalVisitedNode);
+                    System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
+
                     break;
                 }
 
@@ -59,6 +64,8 @@ public class IDS {
                     addQueue(Move.upAndLeft(currentState),currentDepth,currentState.getDepth());
                     addQueue(Move.downAndRight(currentState),currentDepth,currentState.getDepth());
                     addQueue(Move.upAndRight(currentState),currentDepth,currentState.getDepth());
+                maxNumberOfStoredInMemory = Math.max(maxNumberOfStoredInMemory, frontier.size() + visited.size());
+
 
 
 //                if(currentState.getDepth() <= currentDepth) {
@@ -74,6 +81,8 @@ public class IDS {
 //                    addQueue(Move.upAndRight(currentState),currentState.getDepth());
 //                }
             }
+
+            totalVisitedNode = totalVisitedNode + visited.size();
 
             if (solvedFlag){
                 break;

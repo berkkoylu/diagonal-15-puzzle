@@ -5,6 +5,8 @@ public class DFS {
             {12, 13, 14, 5},
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
+    private int maxNumberOfStoredInMemory = 0;
+
 
     private final HashSet<State> visited = new HashSet<>();
     private final Stack<State> frontier = new Stack<>();
@@ -35,6 +37,8 @@ public class DFS {
 
                 System.out.println("Solved");
                 System.out.println("Total number of expanded node: " + visited.size());
+                System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
+
                 break;
             }
             visited.add(currentState);
@@ -47,6 +51,8 @@ public class DFS {
             addQueue(Move.upAndLeft(currentState));
             addQueue(Move.downAndRight(currentState));
             addQueue(Move.upAndRight(currentState));
+            maxNumberOfStoredInMemory = Math.max(maxNumberOfStoredInMemory, frontier.size() + visited.size());
+
         }
     }
 

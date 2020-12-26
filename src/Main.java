@@ -38,7 +38,7 @@ public class Main {
 //                {10, 6, 14, 0}};
 
 
-        int depth = 5;
+        int depth = 2;
         int[][] puzzle; puzzle = PuzzleGenerator.generatePuzzle(depth);
 
         System.out.println("##########################################");
@@ -52,17 +52,16 @@ public class Main {
 
         State initialState = new State(puzzle);
 
-//        ILS ils = new ILS();
-//        ils.solve(initialState);
+        ILS ils = new ILS();
+        ils.solve(initialState);
 
 //        UCS ucs = new UCS();
 //        ucs.solve(initialState);
 
-        //       ILS.solve(initialState,17);
 
 
-            AStarH1 aStarH1 = new AStarH1();
-            aStarH1.solve(initialState);
+//            AStarH1 aStarH1 = new AStarH1();
+//            aStarH1.solve(initialState);
 
 //            AStarH2 aStarH2 =  new AStarH2();
 //            aStarH2.solve(initialState);

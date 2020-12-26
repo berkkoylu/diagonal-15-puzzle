@@ -6,6 +6,9 @@ public class ILS {
             {11, 0, 15, 6},
             {10, 9, 8, 7}};
 
+    private int maxNumberOfStoredInMemory = 0;
+    private int totalVisitedNode = 0;
+
     private boolean solvedFlag = false;
 
     public static HashSet<State> visited = new HashSet<>();
@@ -50,7 +53,9 @@ public class ILS {
 
                     solvedFlag = true;
                     System.out.println("Solved at coast level: " + printState.getCost());
-                    System.out.println("Number of expanded node: " + visited.size());
+                    System.out.println("Total number of expanded node: " + totalVisitedNode);
+                    System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
+
                     break;
                 }
 
@@ -65,8 +70,12 @@ public class ILS {
                 addQueue(Move.upAndLeft(currentState), currentCoast);
                 addQueue(Move.downAndRight(currentState), currentCoast);
                 addQueue(Move.upAndRight(currentState), currentCoast);
+                maxNumberOfStoredInMemory = Math.max(maxNumberOfStoredInMemory, frontier.size() + visited.size());
+
 
             }
+
+            totalVisitedNode = totalVisitedNode + visited.size();
 
             if (solvedFlag){
                 break;
