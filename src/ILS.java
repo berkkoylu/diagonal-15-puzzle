@@ -19,7 +19,7 @@ public class ILS {
         }
     });
 
-
+    // We apply the algorithm and print the solution path, cost, number of expanded nodes and number of nodes stored in memory
     public void solve(State state) {
 
         int maxCost = 100000;
@@ -52,7 +52,7 @@ public class ILS {
                     }
 
                     solvedFlag = true;
-                    System.out.println("Solved at coast level: " + printState.getCost());
+                    //System.out.println("Solved at coast level: " + printState.getCost());
                     System.out.println("Total number of expanded node: " + totalVisitedNode);
                     System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
 
@@ -83,11 +83,11 @@ public class ILS {
 
         }
     }
-
+    //Check each time if the visited node is the goal node.
     public static boolean isSolution(int[][] puzzle) {
         return Arrays.deepEquals(puzzle, solution);
     }
-
+    //If children nodes are in visited or frontier, we will not add to frontier. We check it then add it to frontier if there is no problem.
     public void addQueue(State state, int currentCoast) {
         if(state != null){
             if(state.getCost() <= currentCoast) {
@@ -112,7 +112,7 @@ public class ILS {
         }
 
     }
-
+    //Checking that the child node is already at the frontier.
     public boolean searchAtFrontier(State state){
 
         for (State tempState: frontier) {
@@ -122,7 +122,7 @@ public class ILS {
         }
         return false;
     }
-
+    //Checking whether the child node is already visited or not.
     public boolean searchVisited(State state){
         for (State tempState: visited) {
             if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
@@ -132,7 +132,7 @@ public class ILS {
         return true;
     }
 
-
+    //Checking whether the child node is already at frontier or not.
     public boolean searchFrontier(State state) {
         for (State tempState : frontier) {
             if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
@@ -141,12 +141,13 @@ public class ILS {
         }
         return true;
     }
-        public void printPuzzle(int[][] matrix) {
+    // Print the solution path.
+    public void printPuzzle(int[][] matrix) {
             for (int[] ints : matrix) {
                 for (int anInt : ints) {
                     System.out.printf("%4d", anInt);
                 }
                 System.out.println();
             }
-        }
+    }
 }

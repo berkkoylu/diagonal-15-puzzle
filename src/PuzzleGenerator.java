@@ -10,7 +10,7 @@ public class PuzzleGenerator {
                              {11,0,15,6},
                              {10,9,8,7}};
 
-
+    //Generate the puzzle with the given input
     public static int[][] generatePuzzle(int depth){
         for (int i = 0; i < depth; i++) {
             List<Integer> possibleMoves = findPossibleMove(puzzle);
@@ -19,27 +19,17 @@ public class PuzzleGenerator {
             if(lastMovedTile != randomElement){
                 makeMove(0,randomElement);
                 lastMovedTile = randomElement;
-
-                printPuzzle(puzzle);
-                System.out.printf("Changed 0 with %d\n", randomElement);
-                System.out.println("##########################################");
-
-
             }else{
                 possibleMoves.remove(possibleMoves.remove(possibleMoves.indexOf(randomElement)));
                 int newRandomElement = possibleMoves.get(rand.nextInt(possibleMoves.size()));
                 lastMovedTile = newRandomElement;
                 makeMove(0,newRandomElement);
-                printPuzzle(puzzle);
-                System.out.printf("cycle detected %d and finding new element %d \n",randomElement, newRandomElement);
-                System.out.println("##########################################");
-
-
             }
         }
         return puzzle;
     }
 
+    // Try to find possible creatable puzzle
     public static List<Integer> findPossibleMove(int[][] puzzle){
         int[] position = findSpace(0);
         List<Integer> adjacent = new ArrayList<>();
@@ -54,7 +44,7 @@ public class PuzzleGenerator {
         }
         return adjacent;
     }
-
+    //Method find the 0's location
     public static int[] findSpace(int number){
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -65,7 +55,7 @@ public class PuzzleGenerator {
         }
         return new int[] {0,0};
     }
-
+    //0 change the position with given way
     public static void makeMove(int space, int tile){
         int[] locationSpace = findSpace(space);
         int[] locationTile = findSpace(tile);
@@ -74,7 +64,7 @@ public class PuzzleGenerator {
         puzzle[locationTile[0]][locationTile[1]] = 0;
 
     }
-
+    //Print puzzle
     public static void printPuzzle(int[][] matrix) {
         for (int[] ints : matrix) {
             for (int anInt : ints) {

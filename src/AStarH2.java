@@ -18,7 +18,7 @@ public class AStarH2 {
     });
 
 
-
+    // We apply the algorithm and print the solution path, cost, number of expanded nodes and number of nodes stored in memory
     public  void solve(State state) {
         frontier.clear();
         frontier.add(state);
@@ -42,8 +42,6 @@ public class AStarH2 {
                     System.out.println("----------- cost of move is " + reverseState.getCost());
 
                 }
-
-                System.out.println("Solved");
                 System.out.println("Total number of expanded node: " + visited.size());
                 System.out.println("Maximum number of nodes stored in the memory: " + maxNumberOfStoredInMemory);
 
@@ -66,7 +64,7 @@ public class AStarH2 {
 
         }
     }
-
+    //If children nodes are in visited or frontier, we will not add to frontier. We check it then add it to frontier if there is no problem.
     public void addQueue(State state) {
 
         if (state != null) {
@@ -81,9 +79,7 @@ public class AStarH2 {
             }
         }
     }
-
-
-
+    //Checking whether the child node is already visited or not.
     public boolean searchVisited(State state){
         for (State tempState: visited) {
             if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
@@ -93,7 +89,7 @@ public class AStarH2 {
         return true;
     }
 
-
+    //Checking whether the child node is already at frontier or not.
     public boolean searchFrontier(State state) {
         for (State tempState : frontier) {
             if (Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())) {
@@ -102,9 +98,8 @@ public class AStarH2 {
         }
         return true;
     }
-
-
-
+    //İf node to be added is already addded, then the lower cost must be added to frontier between these 2 same node. In this case,
+    // this method look to these two puzzle and take the puzzle with the smallest cost and if it needs to swap them.
     public void swapFrontier(State state){
 
         for (State tempState: frontier) {
@@ -118,7 +113,7 @@ public class AStarH2 {
         }
 
     }
-
+    //Checking that the child node is already at the frontier.
     public boolean searchAtFrontier(State state){
         if (state == null){
             return false;
@@ -133,31 +128,12 @@ public class AStarH2 {
 
     }
 
-    public boolean searchExploredAndVisited(State state){
-        if (state == null){
-            return false;
-        }
-
-        for (State tempState: visited) {
-            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
-                return false;
-            }
-        }
-
-        for (State tempState: frontier) {
-            if(Arrays.deepEquals(tempState.getMatrixPuzzle(), state.getMatrixPuzzle())){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-
+    //Check each time if the visited node is the goal node.
     public  boolean isSolution(int[][] puzzle) {
         return Arrays.deepEquals(puzzle, solutionMatrix);
     }
 
+    // Calculate the of the city-block distances of each misplaced tile from its current location to its goal location.
     public  int calculateHeuristicH2(State state) {
         int heuristicValueH2 = 0;
         int[][] stateMatrix = state.getMatrixPuzzle();
@@ -175,6 +151,7 @@ public class AStarH2 {
 
         return heuristicValueH2;
     }
+    // Print the solution path.
     public void printPuzzle(int[][] matrix) {
         for (int[] ints : matrix) {
             for (int anInt : ints) {
